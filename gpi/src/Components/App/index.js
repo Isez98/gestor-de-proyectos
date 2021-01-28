@@ -3,7 +3,8 @@ import './index.css';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
 import Login from '../../Pages/Login';
 import Forgot from '../../Pages/Forgot';
@@ -24,8 +25,11 @@ function App() {
           <Route path="/statistics">
             <Statistics/>
           </Route>
-          <Route path="/">
+          <Route path="/login">
             <Login/>
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/login"/>
           </Route>
         </Switch>
       </div>
