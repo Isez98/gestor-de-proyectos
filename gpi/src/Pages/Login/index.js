@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 import React from 'react';
+import './styles.css';
 import TecLogo from '../../Assets/img/tecnm-1.png';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import AuthForm from '../../Components/AuthForm'
 import { Link } from 'react-router-dom';
 
 function Login({userData}) {
-
   return (
     <Container fluid>
       <Row className="justify-content-center">
@@ -15,7 +15,7 @@ function Login({userData}) {
             <Row>
               {/* Tecnm Image Logo */}
               <div className="col-lg-4 d-none d-lg-flex">
-                <img id="iconSup" src={TecLogo} alt="" />
+                <img id="iconLogo" src={TecLogo} alt="" />
               </div>
               {/* Account login field */}
               <AuthForm userName={userData}  />
@@ -30,7 +30,7 @@ function Login({userData}) {
                         id="guestBtn" 
                         className="btn btn-primary btn-block text-white btn-user rounded-pill py-2" 
                         role="button" 
-                        to='/statistics'>Entrar
+                        to='/guest/statistics'>Entrar
                       </Link>
                   </form>
                 </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './styles.css';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,8 +11,7 @@ import PrivateRoute from '../../Utils/PrivateRoute';
 import Login from '../../Pages/Login';
 import Forgot from '../../Pages/Forgot';
 import Register from '../../Pages/Register';
-import Statistics from '../../Pages/Statistics';
-import UserPage from '../../Pages/User';
+import PageFrame from '../../Utils/PageFrame'
 
 function App() {
   const [userName, setUserName] = useState('');
@@ -31,14 +30,14 @@ function App() {
           <Route path="/register">
             <Register/>
           </Route>
-          <Route path="/statistics">
-            <Statistics/>
+          <Route path="/guest">
+            <PageFrame guest />
           </Route>
           <Route path="/login">
             <Login userData={getUser}/>
           </Route>
-          <PrivateRoute exact path={`/${userName}`}>
-            <UserPage userData={userName}/>
+          <PrivateRoute path={`/${userName}`}>
+            <PageFrame userData={userName} />
           </PrivateRoute>
           <Route path="/">
             <Redirect to="/login"/>

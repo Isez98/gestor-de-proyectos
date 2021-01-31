@@ -30,7 +30,7 @@ const AuthForm = (props) => {
     //Get user info
     const value = await apis.getUserByEmail(payload)
     props.userName(value); 
-    history.push(`/${value}`)
+    history.push(`/${value}/statistics`)
   }
 
   return(
