@@ -1,6 +1,7 @@
 import React from 'react';
 import TecLogo from '../../Assets/img/tecnm-1.png';
 import { Link } from 'react-router-dom';
+import '../Login/styles.css';
 
 function Forgot(){
   return(
@@ -11,7 +12,7 @@ function Forgot(){
             <div className="card-body p-0">
               <div className="row">
                 <div className="col-lg-5 d-none d-lg-flex">
-                  <img id="iconSup" src={TecLogo} alt=""/>
+                  <img id="iconLogo" src={TecLogo} alt=""/>
                 </div>
                 <div className="col-lg-6">
                   <div className="p-5">

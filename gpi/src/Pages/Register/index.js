@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import TecLogo from '../../Assets/img/tecnm-1.png';
+import '../Login/styles.css';
 
 function Register(){
   return(
@@ -9,7 +10,7 @@ function Register(){
         <div className="card-body p-0">
           <div className="row">
             <div className="col-lg-5 d-none d-lg-flex">
-              <img id="iconSup" src={TecLogo} alt=""/>
+              <img id="iconLogo" src={TecLogo} alt=""/>
             </div>
               <div className="col-lg-7">
                 <div className="p-5">
