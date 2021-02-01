@@ -21,9 +21,11 @@ function Header(props) {
   }
 
   return(
-    <nav className="navbar navbar-dark bg-primary">
-      <div className="row col-12 d-flex justify-content-center text-white">
-        <span className="h3">{props.title || "default"}</span>
+    <nav className="navbar navbar-dark mt-0 shadow-lg w-100">
+      <div className="row col-12 d-flex justify-content-center">
+        {
+          //<span className="h3">{props.title || "default"}</span>
+        }
         <RenderLogout />
       </div>
     </nav>

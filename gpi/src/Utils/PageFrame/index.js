@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import NavBar from '../../Components/NavBar';
 import Header from '../../Components/Header';
 
@@ -13,9 +12,9 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 const PageFrame = (props) => {
   let { path } = useRouteMatch();
   return(
-    <div className="d-flex">
+    <div className="d-flex w-100">
       <NavBar/>
-      <Container>
+      <span className="bg-white p-0 m-0 w-100">
         <Header/>
         <Switch>
           <Route path={`${path}/me`}>
@@ -34,7 +33,7 @@ const PageFrame = (props) => {
             <h1>The default page</h1>
           </Route>
         </Switch>
-      </Container>
+      </span>
     </div>
   )
 };
