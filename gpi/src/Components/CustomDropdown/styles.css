@@ -1,0 +1,15 @@
+.dropdown-toggle::after { 
+  content: none; 
+}
+
+#dropdown-custom {
+  cursor: pointer;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+#usrImg{
+  width: 2em !important;
+  height: 2em !important;
+}

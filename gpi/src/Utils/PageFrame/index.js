@@ -11,6 +11,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 const PageFrame = (props) => {
   let { path } = useRouteMatch();
+
   return(
     <div className="d-flex w-100">
       <NavBar/>
