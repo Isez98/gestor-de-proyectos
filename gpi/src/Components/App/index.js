@@ -14,11 +14,8 @@ import Register from '../../Pages/Register';
 import PageFrame from '../../Utils/PageFrame'
 
 function App() {
-  const [userName, setUserName] = useState('');
+  const [userData, setUserData] = useState({});
   
-  const getUser = (data) => {
-    setUserName(data);
-  }
 
   return (
     <Router>
@@ -34,10 +31,10 @@ function App() {
             <PageFrame guest />
           </Route>
           <Route path="/login">
-            <Login userData={getUser}/>
+            <Login setData={setUserData} data={userData}/>
           </Route>
-          <PrivateRoute path={`/${userName}`}>
-            <PageFrame userData={userName} />
+          <PrivateRoute path={`/${userData.userName}`}>
+            <PageFrame data={userData} />
           </PrivateRoute>
           <Route path="/">
             <Redirect to="/login"/>

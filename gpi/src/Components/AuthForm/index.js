@@ -29,9 +29,11 @@ const AuthForm = (props) => {
 
     //Get user info
     const value = await apis.getUserByEmail(payload)
-    props.userName(value); 
-    history.push(`/${value}/statistics`)
+    
+    props.setData(value); 
+    history.push(`/${value.userName}/statistics`)
   }
+  
 
   return(
     <div className="col-lg-4">

@@ -6,7 +6,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import AuthForm from '../../Components/AuthForm'
 import { Link } from 'react-router-dom';
 
-function Login({userData}) {
+function Login({setData, data}) {
   return (
     <Container fluid>
       <Row className="justify-content-center">
@@ -18,7 +18,7 @@ function Login({userData}) {
                 <img id="iconLogo" src={TecLogo} alt="" />
               </div>
               {/* Account login field */}
-              <AuthForm userName={userData}  />
+              <AuthForm setData={setData}  data={data}/>
               {/* Guest login */ }
               <div className="col-lg-4 guest-box">
                 <div className="p-5 section-guest">

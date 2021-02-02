@@ -3,7 +3,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import CustomDropdown from '../CustomDropdown';
 
 
-function Header({ setState }) {
+function Header({ setState, data }) {
   function RenderLogout() {
     return(
       <div className="ml-auto">
@@ -38,8 +38,7 @@ function Header({ setState }) {
   return(
     <nav className="navbar navbar-dark mt-0 shadow-lg w-100">
       <div className="row col-12 d-flex justify-content-end">
-        <CustomDropdown logout={RenderLogout()} userPage={RenderUser()}/>
-          
+        <CustomDropdown data={data} logout={RenderLogout()} userPage={RenderUser()}/>
       </div>
     </nav>
   )

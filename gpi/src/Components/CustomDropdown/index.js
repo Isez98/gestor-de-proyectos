@@ -17,12 +17,18 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   </span>
 ));
 
-const CustomDropdown = ({logout, userPage, user}) => {
+const CustomDropdown = ({logout, userPage, data}) => {
+  let userFullName = null;
+
+  if(data){
+    userFullName = `${data.firstName} ${data.lastName}`;
+  } 
+
   return(
   <>
     <Dropdown className="bg-transparent">
       <Dropdown.Toggle as={CustomToggle}>
-        <span className="d-none d-lg-inline text-gray-600 small">{user || "Test User"}</span>
+        <span className="d-none d-lg-inline text-gray-600 small">{ userFullName || "Invitado"}</span>
         <img className="border rounded-circle img-profile ml-3" id="usrImg" src={TecLogo} alt="Tec"/>
       </Dropdown.Toggle>
       <Dropdown.Menu className="mt-2 rounded">
