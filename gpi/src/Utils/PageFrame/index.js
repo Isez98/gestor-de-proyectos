@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from '../../Components/NavBar';
 import Header from '../../Components/Header';
 
@@ -11,12 +11,14 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
 const PageFrame = (props) => {
   let { path } = useRouteMatch();
+  let currentPath = window.location.pathname.replace(path, '');
+  const [state, setState] = useState(`${currentPath}`);
 
   return(
     <div className="d-flex w-100">
-      <NavBar/>
+      <NavBar state={state} setState={setState}/>
       <span className="bg-white p-0 m-0 w-100">
-        <Header/>
+        <Header state={state} setState={setState}/>
         <Switch>
           <Route path={`${path}/me`}>
             <UserPage/>

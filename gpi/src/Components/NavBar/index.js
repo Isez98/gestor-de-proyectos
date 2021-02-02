@@ -6,13 +6,12 @@ import NavButton from '../NavButton';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { faTachometerAlt, faUser, faTable, faEdit } from '@fortawesome/free-solid-svg-icons'; 
 
-const NavBar = ({className}) => {
+const NavBar = ({ state, setState }) => {
   let { url } = useRouteMatch(); 
-  const [state, setState] = useState('statsNavItem');
   const [barWidth, setBarWidth] = useState(false);
 
   const onClickLogo = () => {
-    setState('statsNavItem');
+    setState('/statistics');
   }
 
   const fullWidth = {width: "15em"};
@@ -36,10 +35,10 @@ const NavBar = ({className}) => {
         </Link>
         <hr className="sidebar-divider my-0"/>
         <ul className="nav navbar-nav text-light text-left pl-0 mt-3 justify-content-start">
-          <NavItem size={barWidth} state={state} setState={setState} id="statsNavItem" url={`${url}/statistics`} icon={faTachometerAlt} title="Estadisticas"/>
-          <NavItem size={barWidth} state={state} setState={setState} id="profileNavItem" url={`${url}/me`} icon={faUser} title="Perfil"/>
-          <NavItem size={barWidth} state={state} setState={setState} id="projectsNavItem" url={`${url}/projects`} icon={faTable} title="Proyectos"/>
-          <NavItem size={barWidth} state={state} setState={setState} id="createItemNav" url={`${url}/create`} icon={faEdit} title="Gestor de Proyectos"/>
+          <NavItem size={barWidth} state={state} setState={setState} id="/statistics" url={`${url}/statistics`} icon={faTachometerAlt} title="Estadisticas"/>
+          <NavItem size={barWidth} state={state} setState={setState} id="/me" url={`${url}/me`} icon={faUser} title="Perfil"/>
+          <NavItem size={barWidth} state={state} setState={setState} id="/projects" url={`${url}/projects`} icon={faTable} title="Proyectos"/>
+          <NavItem size={barWidth} state={state} setState={setState} id="/create" url={`${url}/create`} icon={faEdit} title="Gestor de Proyectos"/>
         </ul>
         <NavButton toggle={barWidth} setToggle={setBarWidth}/>
       </div>

@@ -3,7 +3,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import CustomDropdown from '../CustomDropdown';
 
 
-function Header(props) {
+function Header({ setState }) {
   function RenderLogout() {
     return(
       <div className="ml-auto">
@@ -23,6 +23,7 @@ function Header(props) {
       <div className="ml-auto">
         <Link 
           className="btn w-100" 
+          onClick={() => setState('/me')}
           to={`${url}/me`} >
         Perfil
         </Link>
