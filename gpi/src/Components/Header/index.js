@@ -36,7 +36,7 @@ function Header({ setState, data }) {
   }
   
   return(
-    <nav className="navbar navbar-dark mt-0 shadow-lg w-100">
+    <nav className="navbar navbar-dark mt-0 mb-3 shadow w-100">
       <div className="row col-12 d-flex justify-content-end">
         <CustomDropdown data={data} logout={RenderLogout()} userPage={RenderUser()}/>
       </div>
