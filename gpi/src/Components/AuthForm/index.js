@@ -5,7 +5,7 @@ import apis from '../../API';
 
 const AuthForm = (props) => {
   let history = useHistory();
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const [state, setState] = useState({
     email: '',
     password: ''

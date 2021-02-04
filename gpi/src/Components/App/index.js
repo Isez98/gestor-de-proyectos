@@ -16,9 +16,7 @@ import { UserContext } from '../../Utils/UserContext';
 
 function App() {
   const [user, setUser] = useState({});
-
-  const value = useMemo(() => ({ user, setUser}), [user, setUser])
-  
+  const value = useMemo(() => ({ user, setUser}), [user, setUser]);
 
   return (
     <Router>
