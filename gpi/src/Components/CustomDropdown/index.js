@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../Utils/UserContext';
 import Dropdown from 'react-bootstrap/Dropdown';
 import TecLogo from '../../Assets/img/tecnm-1.png'
 import './styles.css'
@@ -18,10 +19,11 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 ));
 
 const CustomDropdown = ({logout, userPage, data}) => {
+  const { user } = useContext(UserContext);
   let userFullName = null;
 
-  if(data){
-    userFullName = `${data.firstName} ${data.lastName}`;
+  if(user){
+    userFullName = `${user.firstName} ${user.lastName}`;
   } 
 
   return(

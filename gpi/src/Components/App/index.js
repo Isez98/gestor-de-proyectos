@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles.css';
 import {
@@ -12,33 +12,38 @@ import Login from '../../Pages/Login';
 import Forgot from '../../Pages/Forgot';
 import Register from '../../Pages/Register';
 import PageFrame from '../../Utils/PageFrame'
+import { UserContext } from '../../Utils/UserContext';
 
 function App() {
-  const [userData, setUserData] = useState({});
+  const [user, setUser] = useState({});
+
+  const value = useMemo(() => ({ user, setUser}), [user, setUser])
   
 
   return (
     <Router>
       <div className="App bg-primary w-100">
         <Switch>
-          <Route path="/forgot">
-            <Forgot/>
-          </Route>
-          <Route path="/register">
-            <Register/>
-          </Route>
-          <Route path="/guest">
-            <PageFrame guest />
-          </Route>
-          <Route path="/login">
-            <Login setData={setUserData} data={userData}/>
-          </Route>
-          <PrivateRoute path={`/${userData.userName}`}>
-            <PageFrame data={userData} />
-          </PrivateRoute>
-          <Route path="/">
-            <Redirect to="/login"/>
-          </Route>
+          <UserContext.Provider value={value}>
+            <Route path="/forgot">
+              <Forgot/>
+            </Route>
+            <Route path="/register">
+              <Register/>
+            </Route>
+            <Route path="/guest">
+              <PageFrame guest />
+            </Route>
+            <Route path="/login">
+              <Login/>
+            </Route>
+            <PrivateRoute path={`/${user.userName}`}>
+              <PageFrame />
+            </PrivateRoute>
+            <Route path="/">
+              <Redirect to="/login"/>
+            </Route>
+          </UserContext.Provider>
         </Switch>
       </div>
     </Router>

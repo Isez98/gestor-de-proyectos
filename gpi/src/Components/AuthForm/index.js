@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../Utils/UserContext';
 import { Link, withRouter, useHistory } from 'react-router-dom';
 import apis from '../../API';
 
 const AuthForm = (props) => {
   let history = useHistory();
-
+  const { user, setUser } = useContext(UserContext);
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -18,7 +19,7 @@ const AuthForm = (props) => {
     }))
   };
 
-  const handleSubmitClick = async e => {
+  const handleSubmitClick = async () => {
     //e.preventDefault();
       const payload = {
       "email": state.email,
@@ -30,7 +31,8 @@ const AuthForm = (props) => {
     //Get user info
     const value = await apis.getUserByEmail(payload)
     
-    props.setData(value); 
+    
+    setUser(value); 
     history.push(`/${value.userName}/statistics`)
   }
   
