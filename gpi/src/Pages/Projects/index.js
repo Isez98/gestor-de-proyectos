@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Table from '../../Components/Table';
+import apis from '../../API';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Projects = () =>{
+  const [projectsData, setProjectsData] = useState({})
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function fetchData () {
+      await apis.getProjects().then(result => {
+        setLoading(false);
+        setProjectsData(result);
+      })      
+    }
+    fetchData()
+  }, [])
+  
   return(
-    <div>
-      <h1>This is the Projects Page</h1>
+    <div className="container-fluid">
+      <h1 className="text-left">Projects</h1>
+      { loading ? <Spinner animation="border" role="status" /> : <Table projectsData={projectsData}/>}
     </div>
   )
 }
