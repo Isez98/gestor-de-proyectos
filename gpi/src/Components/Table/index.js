@@ -1,10 +1,81 @@
 import React from 'react';
-import { useTable, usePagination } from 'react-table';
+import { useTable, usePagination, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
+import { matchSorter } from 'match-sorter'
+  
+function GlobalFilter({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}) {
+  const count = preGlobalFilteredRows.length
+  const [value, setValue] = React.useState(globalFilter)
+  const onChange = useAsyncDebounce(value => {
+    setGlobalFilter(value || undefined)
+  }, 200)
 
+  return (
+    <span>
+      Search:{' '}
+      <input
+        value={value || ""}
+        onChange={e => {
+          setValue(e.target.value);
+          onChange(e.target.value);
+        }}
+        placeholder={`${count} records...`}
+        style={{
+          fontSize: '1.1rem',
+          border: '0',
+        }}
+      />
+    </span>
+  )
+}
+
+function DefaultColumnFilter({
+  column: { filterValue, preFilteredRows, setFilter },
+}) {
+  const count = preFilteredRows.length
+
+  return (
+    <input
+      style={{display: 'none'}}
+      value={filterValue || ''}
+      onChange={e => {
+        setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+      }}
+      placeholder={`Search ${count} records...`}
+    />
+  )
+}
+
+function fuzzyTextFilterFn(rows, id, filterValue) {
+  return matchSorter(rows, filterValue, { keys: [row => row.values[id]] })
+}
+
+fuzzyTextFilterFn.autoRemove = val => !val
 
 const Table = ({projectsData}) => {
+  const filterTypes = React.useMemo(
+    () => ({
+      // Add a new fuzzyTextFilterFn filter type.
+      fuzzyText: fuzzyTextFilterFn,
+      // Or, override the default text filter to use
+      // "startWith"
+      text: (rows, id, filterValue) => {
+        return rows.filter(row => {
+          const rowValue = row.values[id]
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true
+        })
+      },
+    }),
+    []
+  )
 
-  //console.log(projectsData)
   const data = React.useMemo(() => 
   Object.keys(projectsData).map((key, index) => ({
     proyectName: projectsData[key].proyectName,
@@ -53,6 +124,14 @@ const Table = ({projectsData}) => {
     []
   )
 
+  const defaultColumn = React.useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  )
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -67,14 +146,22 @@ const Table = ({projectsData}) => {
     nextPage,
     previousPage,
     setPageSize,
+    visibleColumns,
+    preGlobalFilteredRows,
+    setGlobalFilter,
     state: { pageIndex, pageSize },
+    state
   } = useTable(
     { 
       columns, 
       data, 
-      initialState: {hiddenColumns: "_id", pageIndex: 0}
+      defaultColumn,
+      filterTypes,
+      initialState: {hiddenColumns: "_id", pageIndex: 0, }
     },
-    usePagination
+    useFilters,
+    useGlobalFilter,
+    usePagination,
   )
 
   return (
@@ -94,10 +181,25 @@ const Table = ({projectsData}) => {
                 }}
               >
                 {column.render('Header')}
+                <div>{column.canFilter ? column.render('Filter') : null}</div>
               </th>
             ))}
           </tr>
         ))}
+        <tr>
+            <th
+              colSpan={visibleColumns.length}
+              style={{
+                textAlign: 'left',
+              }}
+            >
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </th>
+          </tr>
       </thead>
       <tbody {...getTableBodyProps()}>
       {page.map((row, i) => {
@@ -158,7 +260,6 @@ const Table = ({projectsData}) => {
       </div>
     </div>
   )
-
 };
 
 export default Table;
