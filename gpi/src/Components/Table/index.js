@@ -1,6 +1,8 @@
 import React from 'react';
+import Table from 'react-bootstrap/Table'
 import { useTable, usePagination, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
-import { matchSorter } from 'match-sorter'
+import { matchSorter } from 'match-sorter';
+import './styles.css';
   
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -13,21 +15,31 @@ function GlobalFilter({
     setGlobalFilter(value || undefined)
   }, 200)
 
+
+
   return (
-    <span>
-      Search:{' '}
-      <input
-        value={value || ""}
-        onChange={e => {
-          setValue(e.target.value);
-          onChange(e.target.value);
-        }}
-        placeholder={`${count} records...`}
-        style={{
-          fontSize: '1.1rem',
-          border: '0',
-        }}
-      />
+    <span className="d-flex">
+      <div class="input-group input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-transparent border-white" id="inputGroup-sizing-sm">Buscar:</span>
+        </div>
+        <input 
+          type="text" 
+          class="form-control" 
+          aria-label="Small" 
+          aria-describedby="inputGroup-sizing-sm"
+          value={value || ""}
+          onChange={e => {
+            setValue(e.target.value);
+            onChange(e.target.value);
+          }}
+          placeholder={`${count} records...`}
+          style={{
+            fontSize: '1.1rem',
+            border: '0',
+          }}
+        />
+      </div>
     </span>
   )
 }
@@ -55,7 +67,7 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 
 fuzzyTextFilterFn.autoRemove = val => !val
 
-const Table = ({projectsData}) => {
+const CustomTable = ({projectsData}) => {
   const filterTypes = React.useMemo(
     () => ({
       // Add a new fuzzyTextFilterFn filter type.
@@ -146,7 +158,6 @@ const Table = ({projectsData}) => {
     nextPage,
     previousPage,
     setPageSize,
-    visibleColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
     state: { pageIndex, pageSize },
@@ -165,101 +176,83 @@ const Table = ({projectsData}) => {
   )
 
   return (
-    <div>
-    <table {...getTableProps()} style={{ border: 'solid 1px' }}>
-      <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th
-                {...column.getHeaderProps()}
-                style={{
-                  borderBottom: 'solid 1px',
-                  color: 'black',
-                  fontWeight: 'bold',
-                  borderRight: 'solid 1px'
-                }}
-              >
-                {column.render('Header')}
-                <div>{column.canFilter ? column.render('Filter') : null}</div>
-              </th>
-            ))}
-          </tr>
-        ))}
-        <tr>
-            <th
-              colSpan={visibleColumns.length}
-              style={{
-                textAlign: 'left',
-              }}
-            >
-              <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </th>
-          </tr>
-      </thead>
-      <tbody {...getTableBodyProps()}>
-      {page.map((row, i) => {
-        prepareRow(row)
-        return (
-          <tr {...row.getRowProps()}>
-            {row.cells.map(cell => {
-              return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-            })}
-          </tr>
-        )
-      })}
-      </tbody>
-    </table>
-    <div className="pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
-        </button>{' '}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'<'}
-        </button>{' '}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {'>'}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
+    <div className="table-responsive table mb-4">
+      <span className="d-flex justify-content-sm-between mb-1">
+        <div className="pagination">
+          <span className="pt-2">Mostrar </span>
+          <select
+            style={{margin: "0 .5em", width: "4em"}}
+            className="custom-select"
+            value={pageSize}
             onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
+              setPageSize(Number(e.target.value))
             }}
-            style={{ width: '100px' }}
-          />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={e => {
-            setPageSize(Number(e.target.value))
-          }}
-        >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
+          >
+            {[10, 20, 30, 40, 50].map(pageSize => (
+              <option key={pageSize} value={pageSize}>
+                {pageSize}
+              </option>
+            ))}
+          </select>
+          <span className="pt-2">elementos </span>
+        </div>
+        <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={state.globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+      </span>
+      <Table {...getTableProps()} className="display table-hover table table-striped table-bordered" >
+      
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th
+                  {...column.getHeaderProps()}
+                >
+                  {column.render('Header')}
+                  <div>{column.canFilter ? column.render('Filter') : null}</div>
+                </th>
+              ))}
+            </tr>
           ))}
-        </select>
-      </div>
+          <tr>
+            </tr>
+        </thead>
+        <tbody {...getTableBodyProps()}>
+        {page.map((row, i) => {
+          prepareRow(row)
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map(cell => {
+                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+              })}
+            </tr>
+          )
+        })}
+        </tbody>
+      </Table>
+      <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+            {'<<'}
+          </button>{' '}
+          <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => previousPage()} disabled={!canPreviousPage}>
+            {'<'}
+          </button>{' '}
+          <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => nextPage()} disabled={!canNextPage}>
+            {'>'}
+          </button>{' '}
+          <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+            {'>>'}
+          </button>{' '}
+          <span>
+            Página{' '}
+            <strong>
+              {pageIndex + 1} de {pageOptions.length}
+            </strong>{' '}
+          </span>
     </div>
   )
 };
 
-export default Table;
+export default CustomTable;

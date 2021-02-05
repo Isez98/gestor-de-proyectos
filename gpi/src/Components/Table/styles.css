@@ -1,0 +1,12 @@
+button:disabled {
+  background-color: transparent;
+  color: grey;
+  outline: none;
+  border: 1px white solid;
+}
+
+button:hover:disabled {
+  background-color: transparent;
+  color: grey; 
+  border: 1px white dotted;
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Table from '../../Components/Table';
+import CustomTable from '../../Components/Table';
 import apis from '../../API';
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -19,7 +19,7 @@ const Projects = () =>{
   return(
     <div className="container-fluid">
       <h1 className="text-left">Projects</h1>
-      { loading ? <Spinner animation="border" role="status" /> : <Table projectsData={projectsData}/>}
+      { loading ? <Spinner animation="border" role="status" /> : <CustomTable projectsData={projectsData}/>}
     </div>
   )
 }

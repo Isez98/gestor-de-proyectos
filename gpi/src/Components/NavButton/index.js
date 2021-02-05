@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { SizeContext } from '../../Utils/SizeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight  } from '@fortawesome/free-solid-svg-icons'; 
 
 const NavButton = ({toggle, setToggle}) => {
-
+  const { size, setSize } = useContext(SizeContext);
   const onClick = () => {
-    toggle ? setToggle(false) : setToggle(true)
+    size ? setSize(false) : setSize(true)
   }
 
   return(
@@ -15,7 +16,7 @@ const NavButton = ({toggle, setToggle}) => {
     >
       <div id="collapseBtn" className="btn btn-secondary btn-block rounded-circle border-0">
         <span className="nav-link p-0 m-0">
-          <FontAwesomeIcon id="arrowIcon" icon={ toggle ? faAngleRight : faAngleLeft}/>
+          <FontAwesomeIcon id="arrowIcon" icon={ size ? faAngleRight : faAngleLeft}/>
         </span>            
       </div>          
     </div>
