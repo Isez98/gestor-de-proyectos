@@ -20,22 +20,23 @@ const AuthForm = (props) => {
   };
 
   const handleSubmitClick = async () => {
-    //e.preventDefault();
+    try{
       const payload = {
-      "email": state.email,
-      "password": state.password
+        "email": state.email,
+        "password": state.password
+      }
+      // Search for token
+      apis.login(payload)
+      //Get user info
+      const value = await apis.getUserByEmail(payload)
+      setUser(value); 
+      history.push(`/${value.userName}/statistics`)
+    } catch(error){
+      alert("Error en el ingreso de los datos de usuario...")
     }
-    // Search for token
-    apis.login(payload)
-
-    //Get user info
-    const value = await apis.getUserByEmail(payload)
+    //e.preventDefault();
     
-    
-    setUser(value); 
-    history.push(`/${value.userName}/statistics`)
   }
-  
 
   return(
     <div className="col-lg-4">

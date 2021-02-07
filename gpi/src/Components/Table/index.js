@@ -15,17 +15,15 @@ function GlobalFilter({
     setGlobalFilter(value || undefined)
   }, 200)
 
-
-
   return (
     <span className="d-flex">
-      <div class="input-group input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text bg-transparent border-white" id="inputGroup-sizing-sm">Buscar:</span>
+      <div className="input-group input-group mb-3">
+        <div className="input-group-prepend">
+          <span className="input-group-text bg-transparent border-white" id="inputGroup-sizing-sm">Buscar:</span>
         </div>
         <input 
           type="text" 
-          class="form-control" 
+          className="form-control" 
           aria-label="Small" 
           aria-describedby="inputGroup-sizing-sm"
           value={value || ""}
@@ -176,8 +174,8 @@ const CustomTable = ({projectsData}) => {
   )
 
   return (
-    <div className="table-responsive table mb-4">
-      <span className="d-flex justify-content-sm-between mb-1">
+    <div id="table__responsive" className="table-responsive table h-100" style={ (pageSize === 10 ? {paddingBottom: "0"} : {paddingBottom: "4em"})}>
+      <span className="d-flex justify-content-sm-between">
         <div className="pagination">
           <span className="pt-2">Mostrar </span>
           <select
@@ -202,7 +200,7 @@ const CustomTable = ({projectsData}) => {
           setGlobalFilter={setGlobalFilter}
         />
       </span>
-      <Table {...getTableProps()} className="display table-hover table table-striped table-bordered" >
+      <Table id="table__responsive" {...getTableProps()} className="display table-hover table table-striped table-bordered " >
       
         <thead>
           {headerGroups.map(headerGroup => (

@@ -10,3 +10,11 @@ button:hover:disabled {
   color: grey; 
   border: 1px white dotted;
 }
+
+#table__responsive::-webkit-scrollbar {
+  display: none;
+}
+
+#table__responsive {
+  padding-top: 1.5em;
+}

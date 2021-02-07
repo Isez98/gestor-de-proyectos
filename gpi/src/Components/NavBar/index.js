@@ -20,7 +20,8 @@ const NavBar = ({ state, setState }) => {
 
   return(
     <nav 
-    className={"navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary mt-1 "}
+    id="NavBar"
+    className={"navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary mt-1"}
     style={(size ? reduced : fullWidth)}
     >
       <div className="container-fluid d-flex flex-column p-0">
