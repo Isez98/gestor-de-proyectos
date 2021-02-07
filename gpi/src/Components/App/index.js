@@ -20,7 +20,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App bg-primary w-100">
+      <div className="App bg-primary w-100 h-100">
         <Switch>
           <UserContext.Provider value={value}>
             <Route path="/forgot">
