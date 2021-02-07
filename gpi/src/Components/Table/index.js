@@ -104,6 +104,9 @@ const CustomTable = ({projectsData}) => {
       {
         Header: 'Proyecto',
         accessor: 'proyectName', // accessor is the "key" in the data
+        Cell: row => (
+          <div style={{ textAlign: "left", maxWidth: "13em", minWidth: "13em" }}>{row.value}</div>
+        ),
       },
       {
         Header: 'Fecha De Inicio',
@@ -111,19 +114,22 @@ const CustomTable = ({projectsData}) => {
       },
       {
         Header: 'Tipo De Proyecto',
-        accessor: 'typeProyect'
+        accessor: 'typeProyect',
       },
       {
         Header: 'Empresa',
-        accessor: 'enterpriseProject'
+        accessor: 'enterpriseProject',
+        Cell: row => (
+          <div style={{ maxWidth: "10em", minWidth: "10em" }}>{row.value}</div>
+        ),
       },
       {
         Header: 'Objetivo',
-        accessor: 'objectiveProject'
+        accessor: 'objectiveProject',
       },
       {
         Header: 'Estatus',
-        accessor: 'statusProject'
+        accessor: 'statusProject',
       },
       {
         Header: 'ID',
@@ -174,7 +180,7 @@ const CustomTable = ({projectsData}) => {
   )
 
   return (
-    <div id="table__responsive" className="table-responsive table h-100" style={ (pageSize === 10 ? {paddingBottom: "0"} : {paddingBottom: "4em"})}>
+    <div id="table__responsive" className="table-responsive table h-100" style={ ({paddingBottom: "4em", overflowX: "scroll"})}>
       <span className="d-flex justify-content-sm-between">
         <div className="pagination">
           <span className="pt-2">Mostrar </span>
@@ -200,7 +206,7 @@ const CustomTable = ({projectsData}) => {
           setGlobalFilter={setGlobalFilter}
         />
       </span>
-      <Table id="table__responsive" {...getTableProps()} className="display table-hover table table-striped table-bordered " >
+      <Table id="table__responsive" {...getTableProps()} className="display table-hover table table-striped table-bordered ">
       
         <thead>
           {headerGroups.map(headerGroup => (
