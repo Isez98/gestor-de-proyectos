@@ -118,7 +118,7 @@ function Register(){
                       <Link className="small" to="/forgot">¿Olvidaste tu contraseña?</Link>
                     </div>
                     <div>
-                      <Link className="small" to="/">¿Ya tienes una cuenta? Inicia sesion!</Link>
+                      <Link className="small" to="/login">¿Ya tienes una cuenta? Inicia sesion!</Link>
                     </div>                    
                   </div>
                 </div>
