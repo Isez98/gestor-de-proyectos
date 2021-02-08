@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../../Utils/UserContext';
 import { Link, withRouter, useHistory } from 'react-router-dom';
 import apis from '../../API';
 
 const AuthForm = (props) => {
   let history = useHistory();
-
+  const { setUser } = useContext(UserContext);
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -18,19 +19,23 @@ const AuthForm = (props) => {
     }))
   };
 
-  const handleSubmitClick = async e => {
-    //e.preventDefault();
+  const handleSubmitClick = async () => {
+    try{
       const payload = {
-      "email": state.email,
-      "password": state.password
+        "email": state.email,
+        "password": state.password
+      }
+      // Search for token
+      apis.login(payload)
+      //Get user info
+      const value = await apis.getUserByEmail(payload)
+      setUser(value); 
+      history.push(`/${value.userName}/statistics`)
+    } catch(error){
+      alert("Error en el ingreso de los datos de usuario...")
     }
-    // Search for token
-    apis.login(payload)
-
-    //Get user info
-    const value = await apis.getUserByEmail(payload)
-    props.userName(value); 
-    history.push(`/${value}/statistics`)
+    //e.preventDefault();
+    
   }
 
   return(
