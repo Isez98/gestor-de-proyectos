@@ -40,7 +40,7 @@ function Forgot(){
                       <Link className="small" to="/register">¡Crea una cuenta!</Link>
                     </div>
                     <div className="text-center">
-                      <Link className="small" to="/">¿Ya tienes una cuenta? ¡Ingresa!</Link>
+                      <Link className="small" to="/login">¿Ya tienes una cuenta? ¡Ingresa!</Link>
                     </div>
                   </div>
                 </div>
