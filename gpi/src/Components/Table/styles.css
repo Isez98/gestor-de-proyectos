@@ -18,3 +18,9 @@ button:hover:disabled {
 #table__responsive {
   padding-top: 1.5em;
 }
+
+.table > .btn{
+  font-size: larger;
+  padding: .25rem .5rem;
+  border-radius: 15% !important;
+}

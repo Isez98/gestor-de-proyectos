@@ -14,6 +14,7 @@ const NavItem = (props) => {
       <Link 
       id={props.id} 
       className={ (size ? reducedNav: "") + (props.state === props.id ? styleSelected : styleUnSelected)} 
+      style={props.state === props.id ? {} : {color: "rgba(255,255,255,.5)"}}
       to={`${props.url}`} 
       onClick={() => props.setState(props.id)}
       >

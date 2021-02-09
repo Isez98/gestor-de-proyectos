@@ -206,7 +206,7 @@ const CustomTable = ({projectsData}) => {
           setGlobalFilter={setGlobalFilter}
         />
       </span>
-      <Table id="table__responsive" {...getTableProps()} className="display table-hover table table-striped table-bordered ">
+      <Table {...getTableProps()} className="display table-hover table table-striped table-bordered ">
       
         <thead>
           {headerGroups.map(headerGroup => (

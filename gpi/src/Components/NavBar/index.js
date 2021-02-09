@@ -31,7 +31,7 @@ const NavBar = ({ state, setState }) => {
         onClick={onClickLogo}
         >
           <div className="sidebar-brand-icon rotate-n-0">
-           <img id="iconSup" src={TecLogo} alt=""/>            
+           <img id="iconSup" src={TecLogo} alt=""/>
           </div>
          { size ? null : <div className="sidebar-brand-text mx-3 font-weight-bold"><span>GPI</span></div> }
         </Link>

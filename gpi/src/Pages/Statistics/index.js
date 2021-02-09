@@ -43,6 +43,7 @@ function Statistics() {
               if (t.typeProyect === "Desarrollo de software") {projectCounter['dds'] = projectCounter['dds'] + 1}
               if (t.typeProyect === "Paquete tecnologico") {projectCounter['pt'] = projectCounter['pt'] + 1}
               if (t.typeProyect === "Servicio tecnologico") {projectCounter['st'] = projectCounter['st'] + 1}
+              return null;
           }) 
         })      
       }

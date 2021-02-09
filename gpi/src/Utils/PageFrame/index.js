@@ -17,7 +17,7 @@ const PageFrame = ({data}) => {
   const sizeValue = useMemo(() => ({ size, setSize}), [size, setSize]);
 
   return(
-    <div className="d-flex w-100 h-100 overflow-hidden pl-2" style={{position: "relative"}}>
+    <div className="d-flex w-100 h-100 overflow-hidden" style={{position: "relative"}}>
       <SizeContext.Provider value={sizeValue}>
         <NavBar state={state} setState={setState}/>
       </SizeContext.Provider>      
