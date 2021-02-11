@@ -19,7 +19,7 @@ const Projects = () =>{
   
   return(
     <div className="d-flex justify-content-center align-items-center w-100">
-      <div  id="hide-scroll__parent" className="">
+      <div  id="hide-scroll__parent">
         <div id="hide-scroll__child" className="container-fluid h-100 overflow-auto mb-4 d-flex justify-content-center align-items-center w-100">
           { loading ? <Spinner animation="border" role="status" /> : <CustomTable projectsData={projectsData}/>}
         </div>

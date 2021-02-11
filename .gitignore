@@ -28,3 +28,6 @@ yarn-error.log*
 
 #database
 gpi-server/Database/index.js
+
+#misc
+gpi/src/Components/*.txt
