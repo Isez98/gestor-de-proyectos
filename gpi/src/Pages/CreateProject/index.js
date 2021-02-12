@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './styles.css';
+import AddStudent from '../../Components/AddStudent';
 
 const CreateProject = () =>{
+  const [addStudent, setAddStudent] = useState({})
+  const [count, setCount] = useState(0);
   return(
     <div id="create-container" className="w-100 text-left">
       <div className="container-fluid"></div>
@@ -131,18 +134,22 @@ const CreateProject = () =>{
               </form>
             </div>
           </div>
-                  {
-                    //<!-- Add in studentform section  -->
-                  }
+
           <div className="card shadow">
             <div className="card-header py-3">
               <p className="text-primary m-0 font-weight-bold">Datos de los alumnos participantes</p>
             </div>
             <div className="card-body">
-              <div className="dynamic-wrap-student">
-              {
-                // Add student component here
-              }
+              <div className="dynamic-wrap-student" count={count}>
+                <AddStudent setAddStudent={setAddStudent} addStudent={addStudent} setCount={setCount}/>
+                { 
+                  Object.keys(addStudent).map((obj, i) => {
+                    return(
+                      <div key={i}>
+                        {addStudent[obj]}
+                      </div>
+                    )}) 
+                }
               </div>
             </div>
           </div>
