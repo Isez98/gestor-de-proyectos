@@ -17,15 +17,15 @@ let projectCounter = {
 
 function Statistics() {
 
-
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     const [projectsData, setProjectsData] = useState({})
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-      async function fetchData () {
+        async function fetchData () {
         await apis.getProjects().then(result => {
-          setLoading(false);
-          setProjectsData(result);
           projectCounter = {
             cancel: 0,
             develop: 0,
@@ -35,7 +35,9 @@ function Statistics() {
             pt: 0,
             st: 0
         };
-           result.map(t => {
+
+        
+           result.map(async t => {
               if (t.statusProject === "Cancelado") {projectCounter['cancel'] = projectCounter['cancel'] + 1}
               if (t.statusProject === "En desarrollo") {projectCounter['develop'] = projectCounter['develop'] + 1}
               if (t.statusProject === "Finalizado") {projectCounter['finish'] = projectCounter['finish'] + 1}
@@ -45,6 +47,9 @@ function Statistics() {
               if (t.typeProyect === "Servicio tecnologico") {projectCounter['st'] = projectCounter['st'] + 1}
               return null;
           }) 
+          setLoading(false);
+          setProjectsData(result);
+          console.log(projectCounter);
         })      
       }
       fetchData()
