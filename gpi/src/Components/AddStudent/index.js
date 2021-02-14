@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './styles.css';
  
-const AddStudent = ({addStudent, setAddStudent, setCount}) =>{
-  const [trigger, setTrigger] = useState(true);
+const AddStudent = ({addStudent, setAddStudent, trigger, counter, setCounter}) =>{
+  const [entryId, setEntryId] = useState(counter);
   const [textFields, setTextFields] = useState({
     nameStudent: "", 
     idStudent: ""
   })
+
+  const classAdd = "btn btn-success btn-student";
+  const classRemove ="btn btn-danger btn-student"
 
   const handleType = e => {
     const {id, value} = e.target;
@@ -20,15 +23,17 @@ const AddStudent = ({addStudent, setAddStudent, setCount}) =>{
 
   const addRemove = () => {
     if(trigger){
-      let count = Object.keys(addStudent).length;
+      setCounter(counter + 1)
       setAddStudent(prevState => ({
         ...prevState,
-        [count + 1]  : <AddStudent setAddStudent={setAddStudent} addStudent={addStudent} setCount={setCount}></AddStudent>
+        [entryId] : null
       }));
-      setTrigger(false)
-      setCount(count + 1)
-      console.log(addStudent)
-    } else {alert("remove")} 
+      
+    } else {
+      const entryList = {...addStudent};
+      delete entryList[entryId]
+      setAddStudent(entryList);
+    } 
   }
 
   return(
@@ -66,19 +71,14 @@ const AddStudent = ({addStudent, setAddStudent, setCount}) =>{
           <div className="col">
             <div className="form-group">
               <div className="input-group-btn" style={{marginTop: "1.5em"}}>
-                <button className="btn btn-success btn-add-student" type="button" onClick={() => addRemove()}>
-                  <FontAwesomeIcon icon={faPlus}  />
+                <button className={trigger? classAdd : classRemove} style={{}} type="button" onClick={() => addRemove()}>
+                  {trigger? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
                 </button>
-                <button className="btn btn-success btn-add-student" type="button" onClick={() => alert(textFields.nameStudent + textFields.idStudent)}>{'^'}</button>
               </div>
             </div>
           </div> 
         </div>
-        
       </div>
-      {
-       // fields > 0 ? fields : null
-      }
     </form>
   );
 };

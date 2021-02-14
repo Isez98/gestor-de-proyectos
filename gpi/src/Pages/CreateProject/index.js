@@ -3,8 +3,8 @@ import './styles.css';
 import AddStudent from '../../Components/AddStudent';
 
 const CreateProject = () =>{
-  const [addStudent, setAddStudent] = useState({})
-  const [count, setCount] = useState(0);
+  const [addStudent, setAddStudent] = useState({0: null})
+  const [counter, setCounter] = useState(1);
   return(
     <div id="create-container" className="w-100 text-left">
       <div className="container-fluid"></div>
@@ -12,7 +12,7 @@ const CreateProject = () =>{
         <h3 className="text-dark mb-0">Gestor de Proyectos</h3>
       </div>
       <div className="row"/>
-      <form className="needs-validation" novalidate>
+      <form className="needs-validation" noValidate>
         <div className="col-xl-12 offset-xl-0">
           <div className="card shadow mb-3">
             <div className="card-header py-3">
@@ -23,13 +23,13 @@ const CreateProject = () =>{
                 <div className="form-row">
                   <div className="col">
                     <div className="form-group">
-                      <label for="username"><strong>Nombre del proyecto</strong></label>
+                      <label htmlFor="username"><strong>Nombre del proyecto</strong></label>
                       <input required='true' id="proyectName" className="form-control" type="text" placeholder="Nombre del proyecto" name="nombre.proyecto"/>
                     </div>
                   </div>
                   <div className="col">
                     <div className="form-group">
-                      <label for="email"><strong>Fecha de liberacion</strong></label>
+                      <label htmlFor="email"><strong>Fecha de liberacion</strong></label>
                       <input required='true' id="releaseDate" className="border rounded form-control" type="date" style={{color: "rgb(110, 112, 126)", padding: "6px 12px"}}/>
                     </div>
                   </div>
@@ -140,15 +140,24 @@ const CreateProject = () =>{
               <p className="text-primary m-0 font-weight-bold">Datos de los alumnos participantes</p>
             </div>
             <div className="card-body">
-              <div className="dynamic-wrap-student" count={count}>
-                <AddStudent setAddStudent={setAddStudent} addStudent={addStudent} setCount={setCount}/>
+              <div className="dynamic-wrap-student" >
                 { 
                   Object.keys(addStudent).map((obj, i) => {
-                    return(
-                      <div key={i}>
-                        {addStudent[obj]}
-                      </div>
-                    )}) 
+                    if(i === (Object.keys(addStudent).length-1)){
+                      return(
+                        <div key={i}>
+                          <AddStudent setAddStudent={setAddStudent} addStudent={addStudent} trigger={true} counter={counter} setCounter={setCounter}/>
+                        </div>
+                      )
+                    }
+                    else{
+                      return(
+                        <div key={i}>
+                          <AddStudent setAddStudent={setAddStudent} addStudent={addStudent} trigger={false} counter={counter} setCounter={setCounter}/>
+                        </div>
+                      )
+                    }
+                  }) 
                 }
               </div>
             </div>
