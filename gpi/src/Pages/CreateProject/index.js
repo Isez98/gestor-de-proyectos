@@ -3,8 +3,15 @@ import './styles.css';
 import AddStudent from '../../Components/AddStudent';
 
 const CreateProject = () =>{
-  const [addStudent, setAddStudent] = useState({0: null})
-  const [counter, setCounter] = useState(1);
+  const [addStudent, setAddStudent] = useState([]);
+
+  function handleStudents(key){
+    setAddStudent(prevState => [...prevState, key])
+  }
+
+  function deleteStudent(key){
+    setAddStudent(addStudent.filter((item) => (item !== key)));
+  }
   return(
     <div id="create-container" className="w-100 text-left">
       <div className="container-fluid"></div>
@@ -141,20 +148,19 @@ const CreateProject = () =>{
             </div>
             <div className="card-body">
               <div className="dynamic-wrap-student" >
-                { 
-                  Object.keys(addStudent).map((obj, i) => {
-                    if(i === (Object.keys(addStudent).length-1)){
+                {
+                addStudent.length === 0 ? setAddStudent(prevState => [...prevState, Math.floor(Math.random() * 100)]) : null
+                }
+                {
+                  addStudent.map((value, index) => {
+                    if(index === (addStudent.length-1)){
                       return(
-                        <div key={i}>
-                          <AddStudent setAddStudent={setAddStudent} addStudent={addStudent} trigger={true} counter={counter} setCounter={setCounter}/>
-                        </div>
+                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={true} key={value} dataKey={value}/>
                       )
                     }
                     else{
                       return(
-                        <div key={i}>
-                          <AddStudent setAddStudent={setAddStudent} addStudent={addStudent} trigger={false} counter={counter} setCounter={setCounter}/>
-                        </div>
+                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={false} key={value} dataKey={value}/>
                       )
                     }
                   }) 

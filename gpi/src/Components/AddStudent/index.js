@@ -3,15 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './styles.css';
  
-const AddStudent = ({addStudent, setAddStudent, trigger, counter, setCounter}) =>{
-  const [entryId, setEntryId] = useState(counter);
+const AddStudent = ({handleAdd, handleDelete, trigger, dataKey}) =>{
   const [textFields, setTextFields] = useState({
     nameStudent: "", 
     idStudent: ""
   })
-
   const classAdd = "btn btn-success btn-student";
-  const classRemove ="btn btn-danger btn-student"
+  const classRemove ="btn btn-danger btn-student";
 
   const handleType = e => {
     const {id, value} = e.target;
@@ -21,18 +19,11 @@ const AddStudent = ({addStudent, setAddStudent, trigger, counter, setCounter}) =
     }))
   }
 
-  const addRemove = () => {
+  const addRemove = e => {
     if(trigger){
-      setCounter(counter + 1)
-      setAddStudent(prevState => ({
-        ...prevState,
-        [entryId] : null
-      }));
-      
+      handleAdd(Math.floor(Math.random()*100))
     } else {
-      const entryList = {...addStudent};
-      delete entryList[entryId]
-      setAddStudent(entryList);
+      handleDelete(dataKey)
     } 
   }
 
@@ -71,7 +62,7 @@ const AddStudent = ({addStudent, setAddStudent, trigger, counter, setCounter}) =
           <div className="col">
             <div className="form-group">
               <div className="input-group-btn" style={{marginTop: "1.5em"}}>
-                <button className={trigger? classAdd : classRemove} style={{}} type="button" onClick={() => addRemove()}>
+                <button className={trigger? classAdd : classRemove} style={{}} type="button" onClick={addRemove}>
                   {trigger? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
                 </button>
               </div>
