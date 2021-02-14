@@ -21,7 +21,7 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey}) =>{
 
   const addRemove = e => {
     if(trigger){
-      handleAdd(Math.floor(Math.random()*100))
+      handleAdd(Math.floor(Math.random()*1000))
     } else {
       handleDelete(dataKey)
     } 
@@ -47,7 +47,7 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey}) =>{
           </div>
           <div className="col">
             <div className="form-group">
-              <label for="city"><strong>Numero de Control</strong></label>
+              <label for="city"><strong>Número de Control</strong></label>
               <input 
                 id="idStudent"
                 value={textFields.idStudent}
@@ -55,14 +55,14 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey}) =>{
                 required='true' 
                 className="form-control studentId" 
                 type="text" 
-                placeholder="Numero de control" 
+                placeholder="Número de control" 
                 name="city"/>
             </div>
           </div>
           <div className="col">
             <div className="form-group">
               <div className="input-group-btn" style={{marginTop: "1.5em"}}>
-                <button className={trigger? classAdd : classRemove} style={{}} type="button" onClick={addRemove}>
+                <button className={trigger? classAdd : classRemove} type="button" onClick={addRemove}>
                   {trigger? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
                 </button>
               </div>

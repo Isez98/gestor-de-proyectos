@@ -1,17 +1,28 @@
 import React, {useState} from 'react';
 import './styles.css';
 import AddStudent from '../../Components/AddStudent';
+import AddTeacher from '../../Components/AddTeacher';
 
 const CreateProject = () =>{
   const [addStudent, setAddStudent] = useState([]);
+  const [addTeacher, setAddTeacher] = useState([]);
 
   function handleStudents(key){
-    setAddStudent(prevState => [...prevState, key])
+    setAddStudent(prevState => [...prevState, key]);
   }
 
   function deleteStudent(key){
     setAddStudent(addStudent.filter((item) => (item !== key)));
   }
+
+  function handleTeachers(key){
+    setAddTeacher(prevState => [...prevState, key]);
+  }
+
+  function deleteTeacher(key){
+    setAddTeacher(addTeacher.filter((item) => (item !== key)));
+  }
+
   return(
     <div id="create-container" className="w-100 text-left">
       <div className="container-fluid"></div>
@@ -149,7 +160,7 @@ const CreateProject = () =>{
             <div className="card-body">
               <div className="dynamic-wrap-student" >
                 {
-                addStudent.length === 0 ? setAddStudent(prevState => [...prevState, Math.floor(Math.random() * 100)]) : null
+                addStudent.length === 0 ? setAddStudent(prevState => [...prevState, Math.floor(Math.random() * 1000)]) : null
                 }
                 {
                   addStudent.map((value, index) => {
@@ -178,7 +189,21 @@ const CreateProject = () =>{
             <div className="card-body">
               <div className="dynamic-wrap-teacher">
                 {
-                  // Add Teacher component here
+                addTeacher.length === 0 ? setAddTeacher(prevState => [...prevState, Math.floor(Math.random() * 1000)]) : null
+                }
+                {
+                  addTeacher.map((value, index) => {
+                    if(index === (addTeacher.length-1)){
+                      return(
+                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={true} key={value} dataKey={value}/>
+                      )
+                    }
+                    else{
+                      return(
+                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={false} key={value} dataKey={value}/>
+                      )
+                    }
+                  }) 
                 }
               </div>
             </div>
