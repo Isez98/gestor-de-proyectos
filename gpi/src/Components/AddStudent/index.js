@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './styles.css';
  
-const AddStudent = ({handleAdd, handleDelete, trigger, dataKey}) =>{
+const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, fieldObject, setFieldObject, setDataObject}) =>{
   const [textFields, setTextFields] = useState({
-    nameStudent: "", 
-    idStudent: ""
+    studentName: "", 
+    studentID: ""
   })
+
   const classAdd = "btn btn-success btn-student";
   const classRemove ="btn btn-danger btn-student";
 
@@ -16,14 +17,31 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey}) =>{
     setTextFields(prevState => ({
       ...prevState,
       [id] : value
-    }))
+    }));
+    
   }
+
+  useEffect(() => {
+    setDataObject(prevState => ({
+      ...prevState,
+      studentsInfo:{
+        ...prevState.studentsInfo,
+        [dataKey] : textFields
+      }
+    }))
+  }, [textFields, setDataObject, dataKey])
 
   const addRemove = e => {
     if(trigger){
       handleAdd(Math.floor(Math.random()*1000))
     } else {
       handleDelete(dataKey)
+      let copyData = dataObject.studentsInfo;
+      delete copyData[dataKey];
+      setDataObject(prevState => ({
+        ...prevState,
+        studentsInfo: copyData
+      }));
     } 
   }
 
@@ -35,8 +53,8 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey}) =>{
             <div className="form-group">
               <label for="city"><strong>Nombre del Alumno Participante</strong></label>
               <input 
-                id="nameStudent"
-                value={textFields.nameStudent}
+                id="studentName"
+                value={textFields.studentName}
                 onChange={handleType}
                 required='true' 
                 className="border rounded form-control studentName" 
@@ -49,8 +67,8 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey}) =>{
             <div className="form-group">
               <label for="city"><strong>Número de Control</strong></label>
               <input 
-                id="idStudent"
-                value={textFields.idStudent}
+                id="studentID"
+                value={textFields.studentID}
                 onChange={handleType}
                 required='true' 
                 className="form-control studentId" 

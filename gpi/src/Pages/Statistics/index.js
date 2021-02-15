@@ -49,7 +49,7 @@ function Statistics() {
           }) 
           setLoading(false);
           setProjectsData(result);
-          console.log(projectCounter);
+         // console.log(projectCounter);
         })      
       }
       fetchData()
