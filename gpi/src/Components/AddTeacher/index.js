@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey}) => {
+const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject}) => {
   const [textFields, setTextFields] = useState({
     nameTeacher: "", 
     idTeacher: "",
     subject: ""
-  })
+  }) 
   const classAdd = "btn btn-success btn-student";
   const classRemove ="btn btn-danger btn-student";
 
@@ -19,11 +19,26 @@ const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey}) => {
     }))
   }
 
+  useEffect(() => {
+    let teacherList = dataObject.teachersInfo;
+    teacherList[index] = textFields;
+    setDataObject(prevState => ({
+      ...prevState, 
+      teachersInfo: teacherList
+    }));
+  }, [textFields, setDataObject, dataObject.teachersInfo, index])
+
   const addRemove = e => {
     if(trigger){
       handleAdd(Math.floor(Math.random()*1000))
     } else {
       handleDelete(dataKey)
+      let copyData = dataObject.teachersInfo;
+      copyData = copyData.splice(index, 1)
+      setDataObject(prevState => ({
+        ...prevState, 
+        teachersInfo: copyData
+      }))
     } 
   }
 

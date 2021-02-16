@@ -23,8 +23,6 @@ const CreateProject = () =>{
   const [addStudent, setAddStudent] = useState([]);
   const [addTeacher, setAddTeacher] = useState([]);
 
-  const [fieldObject, setFieldObject] = useState([]);
-
   const handleType = e => {
     const {id, value} = e.target;
     setDataObject(prevState => ({
@@ -285,12 +283,12 @@ const CreateProject = () =>{
                   addStudent.map((value, index) => {
                     if(index === (addStudent.length-1)){
                       return(
-                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} fieldObject={fieldObject} setFieldObject={setFieldObject}/>
+                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index}/>
                       )
                     }
                     else{
                       return(
-                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} fieldObject={fieldObject} setFieldObject={setFieldObject}/>
+                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index}/>
                       )
                     }
                   }) 
@@ -311,12 +309,12 @@ const CreateProject = () =>{
                   addTeacher.map((value, index) => {
                     if(index === (addTeacher.length-1)){
                       return(
-                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={true} key={value} dataKey={value}/>
+                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index}/>
                       )
                     }
                     else{
                       return(
-                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={false} key={value} dataKey={value}/>
+                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index}/>
                       )
                     }
                   }) 
