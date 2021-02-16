@@ -44,49 +44,47 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
   }
 
   return(
-    <form autocomplete="off">
-      <div className="entry-student input-group">
-        <div className="form-row"  style={{width: "100%"}}>
-          <div className="col">
-            <div className="form-group">
-              <label for="city"><strong>Nombre del Alumno Participante</strong></label>
-              <input 
-                id="studentName"
-                value={textFields.studentName}
-                onChange={handleType}
-                required='true' 
-                className="border rounded form-control studentName" 
-                type="text" 
-                placeholder="Nombre del alumno" 
-                name="city"/>
-            </div>
+    <div className="entry-student input-group">
+      <div className="form-row"  style={{width: "100%"}}>
+        <div className="col">
+          <div className="form-group">
+            <label htmlFor="city"><strong>Nombre del Alumno Participante</strong></label>
+            <input 
+              id="studentName"
+              value={textFields.studentName}
+              onChange={handleType}
+              required={true} 
+              className="border rounded form-control studentName" 
+              type="text" 
+              placeholder="Nombre del alumno" 
+              name="city"/>
           </div>
-          <div className="col">
-            <div className="form-group">
-              <label for="city"><strong>Número de Control</strong></label>
-              <input 
-                id="studentID"
-                value={textFields.studentID}
-                onChange={handleType}
-                required='true' 
-                className="form-control studentId" 
-                type="text" 
-                placeholder="Número de control" 
-                name="city"/>
-            </div>
-          </div>
-          <div className="col">
-            <div className="form-group">
-              <div className="input-group-btn" style={{marginTop: "1.5em"}}>
-                <button className={trigger? classAdd : classRemove} type="button" onClick={addRemove}>
-                  {trigger? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
-                </button>
-              </div>
-            </div>
-          </div> 
         </div>
+        <div className="col">
+          <div className="form-group">
+            <label htmlFor="city"><strong>Número de Control</strong></label>
+            <input 
+              id="studentID"
+              value={textFields.studentID}
+              onChange={handleType}
+              required={true} 
+              className="form-control studentId" 
+              type="text" 
+              placeholder="Número de control" 
+              name="city"/>
+          </div>
+        </div>
+        <div className="col">
+          <div className="form-group">
+            <div className="input-group-btn" style={{marginTop: "1.5em"}}>
+              <button className={trigger? classAdd : classRemove} type="button" onClick={addRemove}>
+                {trigger? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
+              </button>
+            </div>
+          </div>
+        </div> 
       </div>
-    </form>
+    </div>
   );
 };
 

@@ -34,8 +34,6 @@ const AuthForm = (props) => {
     } catch(error){
       alert("Error en el ingreso de los datos de usuario...")
     }
-    //e.preventDefault();
-    
   }
 
   return(

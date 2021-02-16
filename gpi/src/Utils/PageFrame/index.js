@@ -5,6 +5,7 @@ import { SizeContext } from '../../Utils/SizeContext';
 import UserPage from '../../Pages/User';
 import Statistics from '../../Pages/Statistics';
 import Projects from '../../Pages/Projects';
+import Project from '../../Pages/Project';
 import CreateProject from '../../Pages/CreateProject';
 import './styles.css';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
@@ -31,11 +32,14 @@ const PageFrame = ({data}) => {
             <Route path={`${path}/statistics`}>
               <Statistics/>
             </Route>
-            <Route path={`${path}/projects`}>
+            <Route exact path={`${path}/projects`}>
               <Projects/>
             </Route>
             <Route path={`${path}/create`}>
               <CreateProject/>
+            </Route>
+            <Route path={`${path}/projects/:id`}>
+              <Project />
             </Route>
             <Route path={`${path}/`}>
               <h1>The default page</h1>

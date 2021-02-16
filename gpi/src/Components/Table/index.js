@@ -1,8 +1,8 @@
 import React from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import { useTable, usePagination, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 import { matchSorter } from 'match-sorter';
-import apis from '../../API';
 import './styles.css';
   
 function GlobalFilter({
@@ -68,17 +68,11 @@ fuzzyTextFilterFn.autoRemove = val => !val
 
 const CustomTable = ({projectsData}) => {
 
+  let { url } = useRouteMatch();
+  const history = useHistory();
+
   const handleRowClick = async (id) => {
-    try
-    {
-      const payload = {
-        "id": id,
-      }
-      await apis.getProjectById(payload).then(result => console.log(result));
-    }catch(error){
-      alert(error)
-    }
-    
+    history.push(`${url}/${id}`);
   }
 
   const filterTypes = React.useMemo(

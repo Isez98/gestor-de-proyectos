@@ -35,7 +35,7 @@ class ChartsPage extends React.Component {
       responsive: true,
       maintainAspectRatio: true,
       scales: {
-        xAxes: [
+        dataSet: [
           {
             barPercentage: 1,
             gridLines: {
