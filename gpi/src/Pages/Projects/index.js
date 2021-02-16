@@ -12,7 +12,7 @@ const Projects = () =>{
       await apis.getProjects().then(result => {
         setLoading(false);
         setProjectsData(result);
-      })      
+      })
     }
     fetchData()
   }, [])

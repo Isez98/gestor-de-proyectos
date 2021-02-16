@@ -1,7 +1,8 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap/Table';
 import { useTable, usePagination, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 import { matchSorter } from 'match-sorter';
+import apis from '../../API';
 import './styles.css';
   
 function GlobalFilter({
@@ -66,6 +67,20 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 fuzzyTextFilterFn.autoRemove = val => !val
 
 const CustomTable = ({projectsData}) => {
+
+  const handleRowClick = async (id) => {
+    try
+    {
+      const payload = {
+        "id": id,
+      }
+      await apis.getProjectById(payload).then(result => console.log(result));
+    }catch(error){
+      alert(error)
+    }
+    
+  }
+
   const filterTypes = React.useMemo(
     () => ({
       // Add a new fuzzyTextFilterFn filter type.
@@ -230,7 +245,7 @@ const CustomTable = ({projectsData}) => {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                return <td {...cell.getCellProps()} onClick={() => handleRowClick(row.values._id)}>{cell.render('Cell')}</td>
               })}
             </tr>
           )
