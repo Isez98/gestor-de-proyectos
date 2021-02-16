@@ -323,8 +323,8 @@ const CreateProject = () =>{
             </div>
           </div>
           <div className="form-group">
-            <button id="proyectBtn" className="btn btn-primary" type="button" onClick={() => console.log("Value: ",dataObject)}>Guardar datos</button>
-            <button onClick={() => {alert("This is an alert!")}} id="deleteBtn" className="btn btn-danger" type="button">Eliminar Proyecto</button>
+            <button id="proyectBtn" className="btn btn-primary text-capitalize font-weight-bold" type="button" onClick={() => console.log("Value: ",dataObject)}>Guardar datos</button>
+            <button onClick={() => {alert("This is an alert!")}} id="deleteBtn" className="btn btn-danger text-capitalize font-weight-bold" type="button">Eliminar Proyecto</button>
           </div>
         </div>
       </form>
