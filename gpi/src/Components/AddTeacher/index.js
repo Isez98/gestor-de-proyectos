@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject}) => {
+const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, teacherMember}) => {
   const [textFields, setTextFields] = useState({
     nameTeacher: "", 
     idTeacher: "",
@@ -20,13 +20,25 @@ const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
   }
 
   useEffect(() => {
-    let teacherList = dataObject.teachersInfo;
-    teacherList[index] = textFields;
-    setDataObject(prevState => ({
-      ...prevState, 
-      teachersInfo: teacherList
-    }));
-  }, [textFields, setDataObject, dataObject.teachersInfo, index])
+    if(dataObject.teachersInfo){
+      let teacherList = dataObject.teachersInfo;
+      teacherList[index] = textFields;
+      setDataObject(prevState => ({
+        ...prevState, 
+        teachersInfo: teacherList
+      }));
+    }
+  }, [textFields, setDataObject, dataObject.teachersInfo, index]);
+
+  useEffect(() => {
+    if(teacherMember[index][0]){
+      setTextFields(prevState => ({
+      nameTeacher: teacherMember[index][0][0],
+      idTeacher: teacherMember[index][0][1],
+      subject: teacherMember[index][0][2]
+      }))
+    }
+  }, [teacherMember, index]);
 
   const addRemove = e => {
     if(trigger){

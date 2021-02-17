@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+import CreateProject from '../CreateProject';
 import apis from '../../API';
 
 const Project = () => {
@@ -20,11 +21,11 @@ const Project = () => {
       alert(error)
     }
   }, [id])
- 
-  console.log(projectData)
-
+  //console.log(projectData)
   return(
-    <div className="d-flex center align-content-center justify-content-center">This is the project page</div>
+    <div className="w-100">
+      <CreateProject title="Vista de proyecto" projectData={projectData}/>
+    </div>
   );
 };
 

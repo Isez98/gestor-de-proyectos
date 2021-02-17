@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './styles.css';
  
-const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject}) =>{
+const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, studentMember}) =>{
   const [textFields, setTextFields] = useState({
     studentName: "", 
     studentID: ""
@@ -21,13 +21,24 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
   }
 
   useEffect(() => {
-    let studentList = dataObject.studentsInfo;
-    studentList[index] = textFields;
-    setDataObject(prevState => ({
-      ...prevState, 
-      studentsInfo: studentList
-    }));
-  }, [textFields, setDataObject, dataObject.studentsInfo, index])
+    if(dataObject.studentsInfo){
+      let studentList = dataObject.studentsInfo;
+      studentList[index] = textFields;
+      setDataObject(prevState => ({
+        ...prevState, 
+        studentsInfo: studentList
+      }));
+    }    
+  }, [textFields, setDataObject, dataObject.studentsInfo, index]);
+
+  useEffect(() => {
+    if(studentMember[index][0]){
+      setTextFields(prevState => ({
+      studentName: studentMember[index][0][0],
+      studentID: studentMember[index][0][1]
+      }))
+    }
+  }, [studentMember, index]);
 
   const addRemove = e => {
     if(trigger){

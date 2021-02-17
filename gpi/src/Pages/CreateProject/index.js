@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './styles.css';
 import AddStudent from '../../Components/AddStudent';
 import AddTeacher from '../../Components/AddTeacher';
 
-const CreateProject = () =>{
+const CreateProject = ({title, projectData}) =>{
   const [dataObject, setDataObject] = useState({
     proyectName: "",
     releaseDate: "",
@@ -20,6 +20,19 @@ const CreateProject = () =>{
     studentsInfo: [],
     teachersInfo: []
   })
+
+  useEffect(() => {
+    if(projectData){
+      setDataObject(projectData)
+      if(projectData.studentMember){
+        setAddStudent(Object.keys(projectData.studentMember).map((key) => [projectData.studentMember[key]]));
+      }
+      if(projectData.teacherMember){
+        setAddTeacher(Object.keys(projectData.teacherMember).map((key) => [projectData.teacherMember[key]]));
+      }
+    }
+  }, [projectData])
+
   const [addStudent, setAddStudent] = useState([]);
   const [addTeacher, setAddTeacher] = useState([]);
 
@@ -51,7 +64,7 @@ const CreateProject = () =>{
     <div id="create-container" className="w-100 text-left">
       <div className="container-fluid"></div>
       <div className="d-sm-flex justify-content-between align-items-center">
-        <h3 className="text-dark mb-0">Gestor de Proyectos</h3>
+        <h3 className="text-dark mb-0 pl-3">{title ? title : "Gestión de Proyecto"}</h3>
       </div>
       <div className="row"/>
       <form className="needs-validation" noValidate>
@@ -279,12 +292,12 @@ const CreateProject = () =>{
                   addStudent.map((value, index) => {
                     if(index === (addStudent.length-1)){
                       return(
-                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index}/>
+                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} studentMember={addStudent}/>
                       )
                     }
                     else{
                       return(
-                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index}/>
+                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} studentMember={addStudent}/>
                       )
                     }
                   }) 
@@ -305,12 +318,12 @@ const CreateProject = () =>{
                   addTeacher.map((value, index) => {
                     if(index === (addTeacher.length-1)){
                       return(
-                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index}/>
+                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} teacherMember={addTeacher}/>
                       )
                     }
                     else{
                       return(
-                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index}/>
+                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} teacherMember={addTeacher}/>
                       )
                     }
                   }) 
