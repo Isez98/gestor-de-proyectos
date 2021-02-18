@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import CreateProject from '../CreateProject';
 import apis from '../../API';
 
-const Project = () => {
+const Project = ({ guestMode }) => {
 
   const [projectData, setProjectData] = useState({});
   let { id } = useParams();
@@ -21,10 +21,10 @@ const Project = () => {
       alert(error)
     }
   }, [id])
-  //console.log(projectData)
+  
   return(
     <div className="w-100">
-      <CreateProject title="Vista de proyecto" projectData={projectData}/>
+      <CreateProject title="Vista de proyecto" projectData={projectData} guestMode={guestMode}/>
     </div>
   );
 };

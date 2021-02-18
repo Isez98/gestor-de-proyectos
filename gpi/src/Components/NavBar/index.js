@@ -7,7 +7,7 @@ import NavButton from '../NavButton';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { faTachometerAlt, faUser, faTable, faEdit } from '@fortawesome/free-solid-svg-icons'; 
 
-const NavBar = ({ state, setState }) => {
+const NavBar = ({ state, setState, guestMode }) => {
   let { url } = useRouteMatch(); 
   const { size } = useContext(SizeContext);
 
@@ -38,9 +38,9 @@ const NavBar = ({ state, setState }) => {
         <hr className="sidebar-divider my-0"/>
         <ul className="nav navbar-nav text-light text-left pl-0 mt-3 justify-content-start">
           <NavItem state={state} setState={setState} id="/statistics" url={`${url}/statistics`} icon={faTachometerAlt} title="Estadisticas"/>
-          <NavItem state={state} setState={setState} id="/me" url={`${url}/me`} icon={faUser} title="Perfil"/>
+          <NavItem state={state} setState={setState} guestMode={guestMode} id="/me" url={`${url}/me`} icon={faUser} title="Perfil"/>
           <NavItem state={state} setState={setState} id="/projects" url={`${url}/projects`} icon={faTable} title="Proyectos"/>
-          <NavItem state={state} setState={setState} id="/create" url={`${url}/create`} icon={faEdit} title="Gestor de Proyectos"/>
+          <NavItem state={state} setState={setState} guestMode={guestMode} id="/create" url={`${url}/create`} icon={faEdit} title="Gestor de Proyectos"/>
         </ul>
         <NavButton/>
       </div>

@@ -4,7 +4,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import CustomDropdown from '../CustomDropdown';
 import './styles.css'
 
-function Header({ setState }) {
+function Header({ setState, guestMode }) {
   const { setUser } = useContext(UserContext);
   function RenderLogout() {
     return(
@@ -41,7 +41,7 @@ function Header({ setState }) {
   return(
     <nav id="NavBar" className=" shadow w-100">
       <div className="row col-12 d-flex justify-content-end">
-        <CustomDropdown state={setState} logout={RenderLogout()} userPage={RenderUser()}/>
+        <CustomDropdown state={setState} logout={RenderLogout()} userPage={RenderUser()} guestMode={guestMode}/>
       </div>
     </nav>
   )

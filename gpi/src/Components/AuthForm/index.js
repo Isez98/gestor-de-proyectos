@@ -3,7 +3,7 @@ import { UserContext } from '../../Utils/UserContext';
 import { Link, withRouter, useHistory } from 'react-router-dom';
 import apis from '../../API';
 
-const AuthForm = (props) => {
+const AuthForm = ({ setGuestMode }) => {
   let history = useHistory();
   const { setUser } = useContext(UserContext);
   const [state, setState] = useState({
@@ -30,6 +30,7 @@ const AuthForm = (props) => {
       //Get user info
       const value = await apis.getUserByEmail(payload)
       setUser(value); 
+      setGuestMode(false);
       history.push(`/${value.userName}/statistics`)
     } catch(error){
       alert("Error en el ingreso de los datos de usuario...")

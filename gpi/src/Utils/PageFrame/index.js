@@ -10,7 +10,7 @@ import CreateProject from '../../Pages/CreateProject';
 import './styles.css';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-const PageFrame = ({data}) => {
+const PageFrame = ({data, guestMode}) => {
   let { path } = useRouteMatch();
   let currentPath = window.location.pathname.replace(path, '');
   const [state, setState] = useState(`${currentPath}`);
@@ -20,10 +20,10 @@ const PageFrame = ({data}) => {
   return(
     <div className="d-flex w-100 h-100 overflow-hidden" style={{position: "relative"}}>
       <SizeContext.Provider value={sizeValue}>
-        <NavBar state={state} setState={setState}/>
+        <NavBar state={state} setState={setState} guestMode={guestMode? guestMode : null}/>
       </SizeContext.Provider>      
       <span id="page-container" className="bg-white pt-0 m-0 w-100 h-100">
-        <Header data={data} state={state} setState={setState}/>
+        <Header data={data} state={state} setState={setState} guestMode={guestMode}/>
         <div id="page-container__div" className="">
           <Switch>
             <Route path={`${path}/me`}>
@@ -39,7 +39,7 @@ const PageFrame = ({data}) => {
               <CreateProject/>
             </Route>
             <Route path={`${path}/projects/:id`}>
-              <Project />
+              <Project guestMode={guestMode} />
             </Route>
             <Route path={`${path}/`}>
               <h1>The default page</h1>

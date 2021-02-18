@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './styles.css';
  
-const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, studentMember}) =>{
+const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, studentMember, guestMode}) =>{
   const [textFields, setTextFields] = useState({
     studentName: "", 
     studentID: ""
@@ -88,9 +88,14 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
         <div className="col">
           <div className="form-group">
             <div className="input-group-btn" style={{marginTop: "1.5em"}}>
-              <button className={trigger? classAdd : classRemove} type="button" onClick={addRemove}>
-                {trigger? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
-              </button>
+              {
+                guestMode ? null : (
+                  <button className={trigger? classAdd : classRemove} type="button" onClick={addRemove}>
+                    {trigger? <FontAwesomeIcon icon={faPlus}/> : <FontAwesomeIcon icon={faMinus}/>}
+                  </button>
+                )
+              }
+              
             </div>
           </div>
         </div> 
