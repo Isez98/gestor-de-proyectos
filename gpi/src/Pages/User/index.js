@@ -1,7 +1,28 @@
-import React from 'react';
-import image from '../../Assets/img/tecnm-1.png'
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../Utils/UserContext';
+import image from '../../Assets/img/tecnm-1.png';
 
-const UserPage = ({userData}) => {
+const UserPage = (props) => {
+  // get the setUser from UserContext
+  const { user } = useContext(UserContext);
+  const [ userData, setUserData] = useState(user);
+
+  const handleChange = e => {
+    const {id, value} = e.target
+    setUserData(prevState => ({
+      ...prevState,
+      [id]: value
+    }))
+  }
+
+  //  Set as async once using the API
+  const handleSubmit = () => {
+    console.log(userData)
+  //  set the value of context with the value of the updated DB user info
+    //const value = await apis.getUserByEmail(payload)
+    //setUser(value); 
+  }
+
   return(
     <div className="container-fluid text-left">
       <h3 className="text-dark mb-4">Perfil</h3>
@@ -29,13 +50,31 @@ const UserPage = ({userData}) => {
                       <div className="col">
                         <div className="form-group">
                           <label htmlFor="username"><strong>Nombre de Usuario</strong></label>
-                          <input required={true} id="userName" className="form-control" type="text" placeholder="Nombre de Usuario" name="username"/>
+                          <input 
+                            required={true} 
+                            value={userData.userName}
+                            id="userName" 
+                            onChange={handleChange}
+                            className="form-control" 
+                            type="text" 
+                            placeholder="Nombre de Usuario" 
+                            name="username"
+                          />
                         </div>
                       </div>
                       <div className="col">
                         <div className="form-group">
                           <label htmlFor="email"><strong>Correo Electronico</strong></label>
-                          <input required={true} id="email" className="form-control" type="email" placeholder="Correo Electronico" name="email"/>
+                          <input 
+                            required={true} 
+                            value={userData.email}
+                            id="email" 
+                            onChange={handleChange}
+                            className="form-control" 
+                            type="email" 
+                            placeholder="Correo Electronico" 
+                            name="email"
+                          />
                         </div>
                       </div>
                     </div>
@@ -43,27 +82,31 @@ const UserPage = ({userData}) => {
                       <div className="col">
                         <div className="form-group">
                           <label htmlFor="first_name"><strong>Nombre(s)</strong></label>
-                          <input required={true} id="firstName" className="form-control" type="text" placeholder="Nombre(s)" name="first_name"/>
+                          <input 
+                            required={true} 
+                            value={userData.firstName}
+                            id="firstName" 
+                            onChange={handleChange}
+                            className="form-control" 
+                            type="text" 
+                            placeholder="Nombre(s)" 
+                            name="first_name"
+                          />
                         </div>
                       </div>
                       <div className="col">
                         <div className="form-group">
                           <label htmlFor="last_name"><strong>Apellido(s)</strong></label>
-                          <input required={true} id="lastName" className="form-control" type="text" placeholder="Apellido(s)" name="last_name"/>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="form-row">
-                      <div className="col">
-                        <div className="form-group">
-                          <label htmlFor="first_name"><strong>Contraseña</strong></label>
-                          <input required={true} id="password" className="form-control" type="password" placeholder="Contraseña" name="first_name"/>
-                        </div>
-                      </div>
-                      <div className="col">
-                        <div className="form-group">
-                          <label htmlFor="last_name"><strong>Repetir Contraseña</strong></label>
-                          <input required={true} id="repeatPassword" className="form-control" type="password" placeholder="Repetir Contraseña" name="last_name"/>
+                          <input 
+                            required={true} 
+                            value={userData.lastName}
+                            id="lastName" 
+                            onChange={handleChange}
+                            className="form-control" 
+                            type="text" 
+                            placeholder="Apellido(s)" 
+                            name="last_name"
+                          />
                         </div>
                       </div>
                     </div>
@@ -71,18 +114,37 @@ const UserPage = ({userData}) => {
                   <div className="card-body">
                     <div className="form-group">
                       <label htmlFor="address"><strong>Academia</strong></label>
-                      <input required={true} id="academy" className="form-control" type="text" placeholder="Academia" name="address"/>
+                      <input 
+                        required={true} 
+                        value={userData.academy}
+                        id="academy" 
+                        onChange={handleChange}
+                        className="form-control" 
+                        type="text" 
+                        placeholder="Academia" 
+                        name="address"
+                      />
                     </div>
                     <div className="form-row">
                       <div className="col">
                         <div className="form-group">
                           <label htmlFor="city"><strong>Numero de Empleado</strong></label>
-                          <input required={true} id="employeeNumber" className="form-control" type="text" placeholder="Numero de Empleado" name="city"/>
+                          <input 
+                            required={true} 
+                            value={userData.employeeNumber}
+                            id="employeeNumber" 
+                            onChange={handleChange}
+                            className="form-control" 
+                            type="text" 
+                            placeholder="Numero de Empleado" 
+                            name="city"
+                          />
                         </div>
                       </div>
                     </div>
                     <div className="form-group">
-                      <button id="profileBtn" className="btn btn-primary text-capitalize font-weight-bold" type="submit">Guardar Configuracion</button>
+                      <button id="profileBtn" className="btn btn-primary text-capitalize font-weight-bold" type="button" onClick={handleSubmit}>Guardar Configuracion</button>
+                      <button className="btn text-capitalize btn-purple font-weight-bold">Cambiar contraseña</button>
                     </div>
                   </div>
                 </form>
