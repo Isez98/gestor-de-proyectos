@@ -2,10 +2,11 @@ const express = require('express');
 const ProjectCtrl = require('../Controller/Project');
 const UserCtrl = require('../Controller/User');
 const User = require('../Database/Models/User');
+const AWS = require('../Controller/AWS');
 const router = express.Router();
 const auth = require("../Middleware/Auth");
 
-//Route for projects
+//Route for projects 
 router.post('/project', ProjectCtrl.createProject);
 router.put('/project/:id', ProjectCtrl.updateProject);
 router.delete('/project/:id', ProjectCtrl.deleteProject);
@@ -32,6 +33,16 @@ router.get('/:userName', auth, async (req, res) => {
   }
 })
 
+//user profile image upload
+router.post('/upload', AWS.upload.single("image"), async (req, res) => {
+    try{
+      console.log("Request ---", req.body);
+      console.log("Request file ---", req.file);
+    }catch(error){
+      return res.send(200).end();
+    }
+  }
+);
 
 
 module.exports = router
