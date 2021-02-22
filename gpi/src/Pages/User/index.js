@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../Utils/UserContext';
 import image from '../../Assets/img/tecnm-1.png';
-const axios = require("axios"); 
+import apis from '../../API';
 
 const UserPage = (props) => {
   // get the setUser from UserContext
@@ -25,34 +25,19 @@ const UserPage = (props) => {
   }
 
   //  Set as async once using the API
-  // Refactor code later
   const handleSubmit = async (e) => {
+    e.preventDefault();
   //  console.log(userData)
   //  set the value of context with the value of the updated DB user info
     //const value = await apis.getUserByEmail(payload)
     //setUser(value); 
 
-    const api = axios.create({
-      baseURL: 'http://localhost:1818'
-    });
-
+    //upload image to S3
+    const fileName = Date.now().toString();
     const formData = new FormData();
-    formData.append('image',file.file);
-
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data'
-      }
-    };
-
-    api.post("/upload", formData, config)
-      .then((response) => {
-        alert("File sent")
-        console.log(response)
-      }).catch((error) => {
-        console.log(error)
-      }
-    );
+    formData.append('imageName', fileName)
+    formData.append('image', file.file);
+    apis.postFile(formData);
   }
 
   return(

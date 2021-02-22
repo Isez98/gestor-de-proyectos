@@ -12,13 +12,14 @@ export const getUserByEmail = payload => api.get(`/user/${payload.email}`, paylo
 export const login = payload => api.post('/login', payload).then(response => {
   localStorage.setItem("ACCESS_TOKEN", response.data.token);
 })
+export const updateUser = payload => api.update()
 
 //Projects API Requests
 export const getProjects = payload => api.get('/projects', payload).then(response => { return response.data.data });
 export const getProjectById = payload => api.get(`/project/${payload.id}`, payload).then(response => { return response.data.data }); 
 
-//Modify later for clean code
-export const postFile = payload => api.post(`/upload`, payload);
+//Image upload AWS S3
+export const postFile = payload => api.post(`/upload`, payload, {headers: {'content-type':'multipart/form-data'}});
 
 const apis = {
   getUsers,
