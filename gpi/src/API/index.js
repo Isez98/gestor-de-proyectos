@@ -12,7 +12,7 @@ export const getUserByEmail = payload => api.get(`/user/${payload.email}`, paylo
 export const login = payload => api.post('/login', payload).then(response => {
   localStorage.setItem("ACCESS_TOKEN", response.data.token);
 })
-export const updateUser = payload => api.update()
+export const updateUser = payload => api.put(`/user/${payload._id}`, payload).then(response => { return response.data })
 
 //Projects API Requests
 export const getProjects = payload => api.get('/projects', payload).then(response => { return response.data.data });
@@ -20,6 +20,8 @@ export const getProjectById = payload => api.get(`/project/${payload.id}`, paylo
 
 //Image upload AWS S3
 export const postFile = payload => api.post(`/upload`, payload, {headers: {'content-type':'multipart/form-data'}});
+//Get image url from AWS S3
+export const getFile = payload => api.get(`/users/${payload.fileName}`, payload).then(response => { return response.data.data });
 
 const apis = {
   getUsers,
@@ -28,6 +30,8 @@ const apis = {
   getProjects,
   getProjectById,
   postFile,
+  updateUser,
+  getFile,
 };
 
 export default apis;

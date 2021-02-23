@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../../Utils/UserContext';
 import image from '../../Assets/img/tecnm-1.png';
 import apis from '../../API';
@@ -7,7 +7,17 @@ const UserPage = (props) => {
   // get the setUser from UserContext
   const { user } = useContext(UserContext);
   const [ userData, setUserData] = useState(user);
+  const [ imageUrl, setImageUrl] = useState('');
 
+  useEffect(() => {
+    
+    const payload = { "fileName": userData.image } 
+    const fetchedImg = apis.getFile(payload).then(response => {
+      setImageUrl(response) 
+    });
+    
+  }, [setImageUrl, userData.image])
+  //console.log(imageUrl)
   const [file, setFile] = useState({
     file: null
   })
@@ -22,24 +32,24 @@ const UserPage = (props) => {
 
   const handleFileChange = e => {
     setFile({file: e.target.files[0]})
+    setUserData(prevState => ({
+      ...prevState,
+      image: `IMAGE-${userData._id}`
+    }))
   }
 
   //  Set as async once using the API
   const handleSubmit = async (e) => {
     e.preventDefault();
-  //  console.log(userData)
-  //  set the value of context with the value of the updated DB user info
-    //const value = await apis.getUserByEmail(payload)
-    //setUser(value); 
+    
+    apis.updateUser(userData)
 
     //upload image to S3
-    const fileName = Date.now().toString();
     const formData = new FormData();
-    formData.append('imageName', fileName)
+    formData.append('imageName', userData.image)
     formData.append('image', file.file);
     apis.postFile(formData);
   }
-
   return(
     <div className="container-fluid text-left">
       <h3 className="text-dark mb-4">Perfil</h3>
@@ -51,7 +61,7 @@ const UserPage = (props) => {
                 <p className="text-primary m-0 font-weight-bold">Imágen de perfil</p>
                </div>
               <div className="card-body text-center shadow">
-                <img className="rounded-circle mb-3 mt-4" src={image} width="160" height="160" alt="user profile"/>
+                <img className="rounded-circle mb-3 mt-4" src={imageUrl !== '' ? imageUrl : image} width="160" height="160" alt="user profile"/>
                 <div className="mb-3">
                   <input type="file" name="image" onChange={handleFileChange} />
                 </div>
