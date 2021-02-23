@@ -22,7 +22,6 @@ router.get('/users', UserCtrl.getUsers);
 
 //Login process
 router.post('/login', UserCtrl.login)
-
 router.get('/:userName', auth, async (req, res) => {
   try{
     // request.user is getting fetched from Middleware after token authentication
@@ -37,5 +36,7 @@ router.get('/:userName', auth, async (req, res) => {
 router.post('/upload', AWS.upload.array("image", 1), async (req, res) => {
   console.log("Successfully uploaded!");
 });
+
+router.get('/users/:fileName', AWS.getFile)
 
 module.exports = router
