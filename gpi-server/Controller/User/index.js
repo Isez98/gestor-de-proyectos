@@ -60,6 +60,7 @@ updateUser = async (req, res) => {
     user.academy = body.academy;
     user.employeeNumber = body.employeeNumber;
     user.password = body.password;
+    user.image = body.image;
 
     user.save()
       .then(() => {

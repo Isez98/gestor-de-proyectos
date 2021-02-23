@@ -10,7 +10,7 @@ const NavItem = (props) => {
   const reducedNav = "d-flex flex-column justify-content-center align-items-center ";
   
   return(
-    <li className="nav-item mt-2 " role="presentation">
+    <li className="nav-item mt-2 " role="presentation" style={props.guestMode ? {display: "none"} : null}>
       <Link 
       id={props.id} 
       className={ (size ? reducedNav: "") + (props.state === props.id ? styleSelected : styleUnSelected)} 

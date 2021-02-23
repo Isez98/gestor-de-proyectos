@@ -17,7 +17,7 @@ import { UserContext } from '../../Utils/UserContext';
 function App() {
   const [user, setUser] = useState({});
   const value = useMemo(() => ({ user, setUser}), [user, setUser]);
-
+  const [guestMode, setGuestMode] = useState();
   return (
     <Router>
       <div className="App bg-primary w-100 h-100">
@@ -30,10 +30,10 @@ function App() {
               <Register/>
             </Route>
             <Route path="/guest">
-              <PageFrame guest />
+              <PageFrame guestMode={guestMode} />
             </Route>
             <Route path="/login">
-              <Login/>
+              <Login setGuestMode={setGuestMode}/>
             </Route>
             <PrivateRoute path={`/${user.userName}`}>
               <PageFrame />

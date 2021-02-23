@@ -1,5 +1,6 @@
 import React from 'react';
-import Table from 'react-bootstrap/Table'
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
 import { useTable, usePagination, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 import { matchSorter } from 'match-sorter';
 import './styles.css';
@@ -66,6 +67,14 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 fuzzyTextFilterFn.autoRemove = val => !val
 
 const CustomTable = ({projectsData}) => {
+
+  let { url } = useRouteMatch();
+  const history = useHistory();
+
+  const handleRowClick = async (id) => {
+    history.push(`${url}/${id}`);
+  }
+
   const filterTypes = React.useMemo(
     () => ({
       // Add a new fuzzyTextFilterFn filter type.
@@ -230,7 +239,7 @@ const CustomTable = ({projectsData}) => {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                return <td {...cell.getCellProps()} onClick={() => handleRowClick(row.values._id)}>{cell.render('Cell')}</td>
               })}
             </tr>
           )

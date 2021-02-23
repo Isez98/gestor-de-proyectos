@@ -24,3 +24,7 @@ button:hover:disabled {
   padding: .25rem .5rem;
   border-radius: 15% !important;
 }
+
+tbody {
+  cursor: pointer;
+}
