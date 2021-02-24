@@ -6,9 +6,11 @@ const api = axios.create({
 
 //User API Requests
 export const getUsers = payload => api.get('/users', payload);
+export const createUser = payload => api.post('/users', payload);
 export const getUserByEmail = payload => api.get(`/user/${payload.email}`, payload).then(response => { 
   return response.data.data;
 })
+
 export const login = payload => api.post('/login', payload).then(response => {
   localStorage.setItem("ACCESS_TOKEN", response.data.token);
 })
@@ -25,6 +27,7 @@ export const getFile = payload => api.get(`/users/${payload.fileName}`, payload)
 
 const apis = {
   getUsers,
+  createUser,
   getUserByEmail,
   login, 
   getProjects,

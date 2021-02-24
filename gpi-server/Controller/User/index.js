@@ -4,8 +4,40 @@ const User = require('../../Database/Models/User');
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
-createUser = (req, res) => {
-  const body = req.body;
+createUser = async (req, res) => {
+
+const user = new User({
+    userName: req.body.userName,
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    academy: req.body.academy,
+    employeeNumber: req.body.employeeNumber,
+    password: req.body.password
+});
+
+if(!user){
+  return res.status(404).json({ status: false, error: err });
+}
+
+await user.save()
+.then(() => {
+  return res.status(201).json({
+    success: true,
+    id: user._id,
+    message: 'User created.'
+  })
+}).catch(error => {
+  return res.status(400).json({
+    error,
+    message: 'User not created. Data received: ', user
+  })
+
+}); 
+
+
+
+/*   const body = req.body;
 
   if(!body){
     return res.status(404).json({
@@ -20,7 +52,7 @@ createUser = (req, res) => {
     return res.status(404).json({ status: false, error: err });
   }
 
-  user.save()
+  await user.save()
     .then(() => {
       return res.status(201).json({
         success: true,
@@ -30,9 +62,9 @@ createUser = (req, res) => {
     }).catch(error => {
       return res.status(400).json({
         error,
-        message: 'User not created.'
+        message: 'User not created. Data received: ', user
       })
-    });
+    }); */
 }
 
 updateUser = async (req, res) => {

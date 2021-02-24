@@ -41,7 +41,7 @@ const RegisterForm = (props) => {
       }
       // Search for token
       console.log(payload);
-      apis.createUsers(payload)
+      apis.createUser(payload)
     } catch(error){
       alert("Error en el ingreso de los datos de usuario...")
     }  
@@ -159,8 +159,9 @@ const RegisterForm = (props) => {
             <button 
             className="btn btn-primary btn-block text-white btn-user rounded-pill py-2" 
             id="registerBtn" 
-            type="submit">Registrar cuenta
-            </button>
+            type="submit"
+            onClick={handleSubmitClick}
+            >Registrar cuenta</button>
         </form>
         <div className="text-center"></div>
         <br/>

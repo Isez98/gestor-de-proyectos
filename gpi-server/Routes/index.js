@@ -14,7 +14,7 @@ router.get('/project/:id', ProjectCtrl.getProjectById);
 router.get('/projects', ProjectCtrl.getProjects);
 
 //Route for users
-router.post('/user', UserCtrl.createUser);
+router.post('/users', UserCtrl.createUser);
 router.put('/user/:id', UserCtrl.updateUser);
 router.delete('/user/:id', UserCtrl.deleteUser);
 router.get('/user/:id', UserCtrl.getUserByEmail);
