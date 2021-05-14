@@ -19,3 +19,7 @@
 #page-container__div::-webkit-scrollbar {
   display: none !important;
 }
+
+#page-container__div > div {
+  width: 100%;
+}

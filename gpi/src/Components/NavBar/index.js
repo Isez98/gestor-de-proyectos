@@ -41,6 +41,7 @@ const NavBar = ({ state, setState, guestMode }) => {
           <NavItem state={state} setState={setState} guestMode={guestMode} id="/me" url={`${url}/me`} icon={faUser} title="Perfil"/>
           <NavItem state={state} setState={setState} id="/projects" url={`${url}/projects`} icon={faTable} title="Proyectos"/>
           <NavItem state={state} setState={setState} guestMode={guestMode} id="/create" url={`${url}/create`} icon={faEdit} title="Gestor de Proyectos"/>
+          <NavItem state={state} setState={setState} guestMode={guestMode} id="/chat" url={`${url}/chat`} icon={faEdit} title="Chat"/>
         </ul>
         <NavButton/>
       </div>

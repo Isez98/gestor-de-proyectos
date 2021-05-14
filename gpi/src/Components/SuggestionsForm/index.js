@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, ValidationError } from "@formspree/react";
+import { useForm } from "@formspree/react";
 
 function SuggestionsForm() {
   const [state, handleSubmit] = useForm("xwkalorj");
@@ -13,7 +13,7 @@ function SuggestionsForm() {
           <div className="card-header py-3">
             <p className="text-primary m-0 font-weight-bold">
               Se agradece cualquier sugerencia o comentario acerca de la
-              plataforma
+              plataforma 
             </p>
           </div>
           <div className="card-body">
@@ -49,7 +49,4 @@ function SuggestionsForm() {
   );
 }
 
-function App() {
-  return <SuggestionsForm />;
-}
-export default App;
+export default SuggestionsForm;

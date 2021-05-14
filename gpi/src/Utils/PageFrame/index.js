@@ -7,6 +7,7 @@ import Statistics from "../../Pages/Statistics";
 import Suggestions from "../../Pages/Suggestions";
 import Projects from "../../Pages/Projects";
 import Project from "../../Pages/Project";
+import Chat from "../../Pages/Chat";
 import CreateProject from "../../Pages/CreateProject";
 import "./styles.css";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
@@ -56,6 +57,9 @@ const PageFrame = ({ data, guestMode }) => {
             </Route>
             <Route path={`${path}/projects/:id`}>
               <Project guestMode={guestMode} />
+            </Route>
+            <Route path={`${path}/chat`}>
+              <Chat />
             </Route>
             <Route path={`${path}/`}>
               <h1>The default page</h1>
