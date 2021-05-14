@@ -28,7 +28,14 @@ const AuthForm = ({ setGuestMode }) => {
       // Search for token
       apis.login(payload)
       //Get user info
-      const value = await apis.getUserByEmail(payload)
+      let value = await apis.getUserByEmail(payload)
+      const picture = await apis.getFile({"fileName": value.image})
+      if(value.image){
+        value.imageURL = `${picture}`;
+      }else{
+        value.imageURL = null
+      }
+      
       setUser(value); 
       setGuestMode(false);
       history.push(`/${value.userName}/statistics`)

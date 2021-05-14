@@ -34,3 +34,4 @@ gpi/src/Components/*.txt
 
 #images
 gpi-server/public/
+gpi-server/.env

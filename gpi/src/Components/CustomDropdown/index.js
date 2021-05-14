@@ -21,7 +21,7 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 const CustomDropdown = ({logout, userPage, guestMode}) => {
   const { user } = useContext(UserContext);
   let userFullName = null;
-
+ 
   if(user.firstName){
     userFullName = `${user.firstName} ${user.lastName}`;
   } 
@@ -31,7 +31,7 @@ const CustomDropdown = ({logout, userPage, guestMode}) => {
     <Dropdown className="bg-white">
       <Dropdown.Toggle as={CustomToggle}>
         <span className="d-none d-lg-inline text-gray-600 small">{ userFullName || "Invitado"}</span>
-        <img className="border rounded-circle img-profile ml-3" id="usrImg" src={TecLogo} alt="Tec"/>
+        <img className="border rounded-circle img-profile ml-3" id="usrImg" src={user.imageURL} alt="Tec"/>
       </Dropdown.Toggle>
       <Dropdown.Menu className="rounded p-0 mt-2">
         {guestMode ? null : userPage}

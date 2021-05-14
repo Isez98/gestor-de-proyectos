@@ -1,7 +1,13 @@
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
-import { useTable, usePagination, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
+import { 
+  useTable, 
+  usePagination, 
+  useFilters, 
+  useGlobalFilter, 
+  useAsyncDebounce 
+} from 'react-table';
 import { matchSorter } from 'match-sorter';
 import './styles.css';
   
@@ -20,7 +26,10 @@ function GlobalFilter({
     <span className="d-flex">
       <div className="input-group input-group mb-3">
         <div className="input-group-prepend">
-          <span className="input-group-text bg-transparent border-white" id="inputGroup-sizing-sm">Buscar:</span>
+          <span 
+          className="input-group-text bg-transparent border-white" 
+          id="inputGroup-sizing-sm"
+          >Buscar:</span>
         </div>
         <input 
           type="text" 
@@ -53,7 +62,7 @@ function DefaultColumnFilter({
       style={{display: 'none'}}
       value={filterValue || ''}
       onChange={e => {
-        setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+        setFilter(e.target.value || undefined)
       }}
       placeholder={`Search ${count} records...`}
     />
@@ -112,7 +121,7 @@ const CustomTable = ({projectsData}) => {
     () => [
       {
         Header: 'Proyecto',
-        accessor: 'proyectName', // accessor is the "key" in the data
+        accessor: 'proyectName',
         Cell: row => (
           <div style={{ textAlign: "left", maxWidth: "13em", minWidth: "13em" }}>{row.value}</div>
         ),
@@ -151,7 +160,6 @@ const CustomTable = ({projectsData}) => {
 
   const defaultColumn = React.useMemo(
     () => ({
-      // Let's set up our default Filter UI
       Filter: DefaultColumnFilter,
     }),
     []
@@ -162,7 +170,7 @@ const CustomTable = ({projectsData}) => {
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    page, // Instead of rows, we'll use page
+    page,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -189,7 +197,11 @@ const CustomTable = ({projectsData}) => {
   )
 
   return (
-    <div id="table__responsive" className="table-responsive table h-100" style={ ({paddingBottom: "4em", overflowX: "scroll"})}>
+    <div 
+      id="table__responsive" 
+      className="table-responsive table h-100" 
+      style={ ({paddingBottom: "4em", overflowX: "scroll"})}
+      >
       <span className="d-flex justify-content-sm-between">
         <div className="pagination">
           <span className="pt-2">Mostrar </span>

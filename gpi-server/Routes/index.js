@@ -33,10 +33,10 @@ router.get('/:userName', auth, async (req, res) => {
 })
 
 //user profile image upload
-router.post('/upload', AWS.upload.array("image", 1), async (req, res) => {
+router.post('/upload/users/pictures/', AWS.upload.array("image", 1), async (req, res) => {
   console.log("Successfully uploaded!");
 });
 
-router.get('/users/:fileName', AWS.getFile)
+router.get('/upload/users/pictures/:fileName', AWS.getFile)
 
 module.exports = router

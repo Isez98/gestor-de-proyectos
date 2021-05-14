@@ -1,27 +1,17 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '../../Utils/UserContext';
 import image from '../../Assets/img/tecnm-1.png';
 import apis from '../../API';
 
 const UserPage = (props) => {
-  // get the setUser from UserContext
-  const { user } = useContext(UserContext);
+  // obtener setUser de UserContext
+  const { user, setUser } = useContext(UserContext);
   const [ userData, setUserData] = useState(user);
-  const [ imageUrl, setImageUrl] = useState('');
-
-  useEffect(() => {
-    
-    const payload = { "fileName": userData.image } 
-    const fetchedImg = apis.getFile(payload).then(response => {
-      setImageUrl(response) 
-    });
-    
-  }, [setImageUrl, userData.image])
-  //console.log(imageUrl)
   const [file, setFile] = useState({
     file: null
   })
 
+  //Gestionar el evento de los cambios a los datos de usuario
   const handleChange = e => {
     const {id, value} = e.target
     setUserData(prevState => ({
@@ -30,38 +20,65 @@ const UserPage = (props) => {
     }))
   }
 
+  //Gestionar el cambio al ingreso del foto de perfil del usuario
   const handleFileChange = e => {
-    setFile({file: e.target.files[0]})
+    const preview = document.querySelector('#preview');
+    const filed = document.querySelector('input[type=file]').files[0];
+    const reader = new FileReader();
+    reader.addEventListener("load", function () {
+      // convertir el archivo de imagen a base64 string
+      preview.src = reader.result;
+    }, false);
+    if (filed) {
+      reader.readAsDataURL(filed);
+    }
+
+    setFile({file: filed});
     setUserData(prevState => ({
       ...prevState,
       image: `IMAGE-${userData._id}`
-    }))
+    }))   
+
   }
 
-  //  Set as async once using the API
+  //  gestion del boton de subir los cambios de los datos a la base de datos
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    apis.updateUser(userData)
+    apis.updateUser(userData) 
 
-    //upload image to S3
+    //subir imagen al bucket de s3
     const formData = new FormData();
     formData.append('imageName', userData.image)
     formData.append('image', file.file);
     apis.postFile(formData);
+
+    const picture = await apis.getFile({"fileName": userData.image})
+    setUserData(prev => ({
+      ...prev,
+      imageURL: `${picture}#t=${performance.now()}`,
+    }))
+    setUser(userData); 
   }
+
   return(
     <div className="container-fluid text-left">
       <h3 className="text-dark mb-4">Perfil</h3>
       <div className="row mb-3">
-        <form className="needs-validation w-100 d-flex" noValidate onSubmit={handleSubmit}>
+        <form className="needs-validation w-100 d-flex" noValidate onSubmit={handleSubmit}>      
           <div className="col-lg-4">
             <div className="card shadow mb-3">
               <div className="card-header py-3">
                 <p className="text-primary m-0 font-weight-bold">Imágen de perfil</p>
                </div>
               <div className="card-body text-center shadow">
-                <img className="rounded-circle mb-3 mt-4" src={imageUrl !== '' ? imageUrl : image} width="160" height="160" alt="user profile"/>
+                <img 
+                  id="preview" 
+                  className="rounded-circle mb-3 mt-4" 
+                  src={`${userData.imageURL}#t=${performance.now()}`} 
+                  width="160" 
+                  height="160" 
+                  alt="user profile"
+                />
                 <div className="mb-3">
                   <input type="file" name="image" onChange={handleFileChange} />
                 </div>
@@ -173,8 +190,16 @@ const UserPage = (props) => {
                         </div>
                     </div>
                     <div className="form-group">
-                      <button id="profileBtn" className="btn btn-primary text-capitalize font-weight-bold" type="submit">Guardar Configuracion</button>
-                      <button className="btn text-capitalize btn-purple font-weight-bold">Cambiar contraseña</button>
+                      <button 
+                        id="profileBtn" 
+                        className="btn btn-primary text-capitalize font-weight-bold" 
+                        type="submit"
+                        >Guardar Configuracion
+                      </button>
+                      <button 
+                        className="btn text-capitalize btn-purple font-weight-bold"
+                        >Cambiar contraseña  
+                      </button>
                     </div>
                   </div>
                 </div>

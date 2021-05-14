@@ -129,7 +129,8 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                       onChange={handleType}
                       required={true}
                       className="border rounded form-control" 
-                      type="date" style={{color: "rgb(110, 112, 126)", padding: "6px 12px"}}
+                      type="date" 
+                      style={{color: "rgb(110, 112, 126)", padding: "6px 12px"}}
                     />
                   </div>
                 </div>
@@ -292,12 +293,34 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                   addStudent.map((value, index) => {
                     if(index === (addStudent.length-1)){
                       return(
-                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} studentMember={addStudent} guestMode={guestMode}/>
+                        <AddStudent 
+                          handleAdd={handleStudents} 
+                          handleDelete={deleteStudent} 
+                          trigger={true} 
+                          key={value} 
+                          dataKey={value} 
+                          dataObject={dataObject} 
+                          setDataObject={setDataObject} 
+                          index={index} 
+                          studentMember={addStudent} 
+                          guestMode={guestMode}
+                        />
                       )
                     }
                     else{
                       return(
-                        <AddStudent handleAdd={handleStudents} handleDelete={deleteStudent} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} studentMember={addStudent} guestMode={guestMode}/>
+                        <AddStudent 
+                          handleAdd={handleStudents} 
+                          handleDelete={deleteStudent} 
+                          trigger={false} 
+                          key={value} 
+                          dataKey={value} 
+                          dataObject={dataObject} 
+                          setDataObject={setDataObject} 
+                          index={index} 
+                          studentMember={addStudent} 
+                          guestMode={guestMode}
+                        />
                       )
                     }
                   }) 
@@ -318,12 +341,34 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                   addTeacher.map((value, index) => {
                     if(index === (addTeacher.length-1)){
                       return(
-                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={true} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} teacherMember={addTeacher} guestMode={guestMode}/>
+                        <AddTeacher 
+                          handleAdd={handleTeachers} 
+                          handleDelete={deleteTeacher} 
+                          trigger={true} 
+                          key={value} 
+                          dataKey={value} 
+                          dataObject={dataObject} 
+                          setDataObject={setDataObject} 
+                          index={index} 
+                          teacherMember={addTeacher} 
+                          guestMode={guestMode}
+                        />
                       )
                     }
                     else{
                       return(
-                        <AddTeacher handleAdd={handleTeachers} handleDelete={deleteTeacher} trigger={false} key={value} dataKey={value} dataObject={dataObject} setDataObject={setDataObject} index={index} teacherMember={addTeacher} guestMode={guestMode}/>
+                        <AddTeacher 
+                          handleAdd={handleTeachers} 
+                          handleDelete={deleteTeacher} 
+                          trigger={false} 
+                          key={value} 
+                          dataKey={value} 
+                          dataObject={dataObject} 
+                          setDataObject={setDataObject} 
+                          index={index} 
+                          teacherMember={addTeacher} 
+                          guestMode={guestMode}
+                        />
                       )
                     }
                   }) 
@@ -334,8 +379,18 @@ const CreateProject = ({title, projectData, guestMode}) =>{
           {
             guestMode ? null : (
               <div className="form-group">
-              <button id="proyectBtn" className="btn btn-primary text-capitalize font-weight-bold" type="button" onClick={() => console.log("Value: ",dataObject)}>Guardar datos</button>
-              <button onClick={() => {alert("This is an alert!")}} id="deleteBtn" className="btn btn-danger text-capitalize font-weight-bold" type="button">Eliminar Proyecto</button>
+              <button 
+                id="proyectBtn" 
+                className="btn btn-primary text-capitalize font-weight-bold" 
+                type="button" 
+                onClick={() => console.log("Value: ",dataObject)}
+                >Guardar datos
+                </button>
+              <button 
+              onClick={() => {alert("This is an alert!")}} id="deleteBtn" 
+              className="btn btn-danger text-capitalize font-weight-bold" 
+              type="button"
+              >Eliminar Proyecto</button>
             </div>
             )
           }

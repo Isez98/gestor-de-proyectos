@@ -21,9 +21,9 @@ export const getProjects = payload => api.get('/projects', payload).then(respons
 export const getProjectById = payload => api.get(`/project/${payload.id}`, payload).then(response => { return response.data.data }); 
 
 //Image upload AWS S3
-export const postFile = payload => api.post(`/upload`, payload, {headers: {'content-type':'multipart/form-data'}});
+export const postFile = payload => api.post(`/upload/users/pictures/`, payload, {headers: {'Content-Type':'multipart/form-data'}}).then(response => { return console.log("image uploaded") });
 //Get image url from AWS S3
-export const getFile = payload => api.get(`/users/${payload.fileName}`, payload).then(response => { return response.data.data });
+export const getFile = payload => api.get(`/upload/users/pictures/${payload.fileName}`, payload).then(response => { return response.data.data });
 
 const apis = {
   getUsers,
