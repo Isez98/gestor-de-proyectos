@@ -316,7 +316,7 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                           dataObject={dataObject} 
                           setDataObject={setDataObject} 
                           index={index} 
-                          studentMember={addStudent} 
+                          addStudent={addStudent} 
                           guestMode={guestMode}
                         />
                       )

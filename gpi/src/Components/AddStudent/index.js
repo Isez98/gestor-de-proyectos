@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './styles.css';
  
-const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, studentMember, guestMode}) =>{
+const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, addStudent, guestMode}) =>{
   const [textFields, setTextFields] = useState({
     studentName: "", 
     studentID: ""
@@ -21,35 +21,35 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
   }
 
   useEffect(() => {
-    if(dataObject.studentsInfo){
-      let studentList = dataObject.studentsInfo;
+    if(dataObject.studentMember){
+      let studentList = dataObject.studentMember;
       studentList[index] = textFields;
       setDataObject(prevState => ({
         ...prevState, 
-        studentsInfo: studentList
+        studentMember: studentList
       }));
     }    
-  }, [textFields, setDataObject, dataObject.studentsInfo, index]);
+  }, [textFields, setDataObject, dataObject.studentMember, index]);
 
   useEffect(() => {
-    if(studentMember[index][0]){
+    if(addStudent[index][0]){
       setTextFields(prevState => ({
-      studentName: studentMember[index][0][0],
-      studentID: studentMember[index][0][1]
+      studentName: addStudent[index][0][0],
+      studentID: addStudent[index][0][1]
       }))
     }
-  }, [studentMember, index]);
+  }, [addStudent, index]);
 
   const addRemove = e => {
     if(trigger){
       handleAdd(Math.floor(Math.random()*1000))
     } else {
       handleDelete(dataKey)
-      let copyData = dataObject.studentsInfo;
+      let copyData = dataObject.studentMember;
       copyData = copyData.splice(index, 1)
       setDataObject(prevState => ({
         ...prevState, 
-        studentsInfo: copyData
+        studentMember: copyData
       }))
     } 
   }
