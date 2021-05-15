@@ -36,7 +36,7 @@ const CustomDropdown = ({ logout, suggestionPage, userPage, guestMode }) => {
         <img 
           className="border rounded-circle img-profile ml-3" 
           id="usrImg" 
-          src={user.imageURL} 
+          src={user.imageURL || TecLogo} 
           alt="Tec"
         />
       </Dropdown.Toggle>

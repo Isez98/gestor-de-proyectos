@@ -22,8 +22,15 @@ const UserPage = (props) => {
 
   //Gestionar el cambio al ingreso del foto de perfil del usuario
   const handleFileChange = e => {
-    const preview = document.querySelector('#preview');
     const filed = document.querySelector('input[type=file]').files[0];
+    setFile({file: filed});
+    setUserData(prevState => ({
+      ...prevState,
+      image: `IMAGE-${userData._id}`,
+      imageURL: URL.createObjectURL(filed)
+    }))   
+
+    const preview = document.querySelector('#preview');
     const reader = new FileReader();
     reader.addEventListener("load", function () {
       // convertir el archivo de imagen a base64 string
@@ -32,16 +39,9 @@ const UserPage = (props) => {
     if (filed) {
       reader.readAsDataURL(filed);
     }
-
-    setFile({file: filed});
-    setUserData(prevState => ({
-      ...prevState,
-      image: `IMAGE-${userData._id}`
-    }))   
-
   }
 
-  //  gestion del boton de subir los cambios de los datos a la base de datos
+  //gestion del boton de subir los cambios de los datos a la base de datos
   const handleSubmit = async (e) => {
     e.preventDefault();
     apis.updateUser(userData) 
@@ -51,7 +51,6 @@ const UserPage = (props) => {
     formData.append('imageName', userData.image)
     formData.append('image', file.file);
     apis.postFile(formData);
-
     const picture = await apis.getFile({"fileName": userData.image})
     setUserData(prev => ({
       ...prev,
@@ -74,7 +73,7 @@ const UserPage = (props) => {
                 <img 
                   id="preview" 
                   className="rounded-circle mb-3 mt-4" 
-                  src={`${userData.imageURL}#t=${performance.now()}`} 
+                  src={user.imageURL || image} 
                   width="160" 
                   height="160" 
                   alt="user profile"
@@ -177,6 +176,7 @@ const UserPage = (props) => {
                           <div className="form-group">
                             <label htmlFor="city"><strong>Numero de Empleado</strong></label>
                             <input 
+                              disabled
                               required={true} 
                               value={userData.employeeNumber}
                               id="employeeNumber" 

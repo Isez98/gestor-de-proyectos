@@ -38,7 +38,7 @@ const AuthForm = ({ setGuestMode }) => {
       
       setUser(value); 
       setGuestMode(false);
-      history.push(`/${value.userName}/statistics`)
+      history.push(`/${value.employeeNumber}/statistics`)
     } catch(error){
       alert("Error en el ingreso de los datos de usuario...")
     }

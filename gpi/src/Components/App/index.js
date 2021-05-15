@@ -35,7 +35,7 @@ function App() {
             <Route path="/login">
               <Login setGuestMode={setGuestMode}/>
             </Route>
-            <PrivateRoute path={`/${user.userName}`}>
+            <PrivateRoute path={`/${user.employeeNumber}`}>
               <PageFrame />
             </PrivateRoute>
             <Route path="/">
