@@ -23,18 +23,18 @@ const CreateProject = ({title, projectData, guestMode}) =>{
     enterpriseContact: "",
     firstNameContact: "",
     lastNameContact: "",
-    studentMember: [],
-    teacherMember: [],
+    studentMember: {},
+    teacherMember: {},
   })
 
   useEffect(() => {
     if(projectData){
       setDataObject(projectData)
       if(projectData.studentMember){
-        setAddStudent(Object.keys(projectData.studentMember).map((key) => [projectData.studentMember[key]]));
+        setAddStudent(projectData.studentMember.map((key) => [projectData.studentMember][key]));
       }
       if(projectData.teacherMember){
-        setAddTeacher(Object.keys(projectData.teacherMember).map((key) => [projectData.teacherMember[key]]));
+        setAddTeacher(projectData.teacherMember.map(() => [projectData.teacherMember]));
       }      
     }
   }, [projectData])
@@ -64,7 +64,15 @@ const CreateProject = ({title, projectData, guestMode}) =>{
   }
 
   const onProjectSubmit = () => {
-    console.log(dataObject);
+    console.log(addStudent);
+    // try {
+    //   api.postProject(dataObject).then(response => {
+    //     alert(response.message)
+    //   })
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    
   }
 
   return(
@@ -332,7 +340,7 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                           dataObject={dataObject} 
                           setDataObject={setDataObject} 
                           index={index} 
-                          studentMember={addStudent} 
+                          addStudent={addStudent} 
                           guestMode={guestMode}
                         />
                       )

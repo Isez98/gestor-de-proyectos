@@ -258,24 +258,26 @@ const CustomTable = ({projectsData}) => {
         })}
         </tbody>
       </Table>
-      <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            {'<<'}
-          </button>{' '}
-          <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => previousPage()} disabled={!canPreviousPage}>
-            {'<'}
-          </button>{' '}
-          <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => nextPage()} disabled={!canNextPage}>
-            {'>'}
-          </button>{' '}
-          <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-            {'>>'}
-          </button>{' '}
-          <span>
-            Página{' '}
-            <strong>
-              {pageIndex + 1} de {pageOptions.length}
-            </strong>{' '}
-          </span>
+      <div className="mb-4">
+        <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {'<<'}
+        </button>{' '}
+        <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => previousPage()} disabled={!canPreviousPage}>
+          {'<'}
+        </button>{' '}
+        <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => nextPage()} disabled={!canNextPage}>
+          {'>'}
+        </button>{' '}
+        <button className="btn btn-sm rounded-sm btn-outline-primary" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {'>>'}
+        </button>{' '}
+        <span>
+          Página{' '}
+          <strong>
+            {pageIndex + 1} de {pageOptions.length}
+          </strong>{' '}
+        </span>
+      </div>
     </div>
   )
 };
