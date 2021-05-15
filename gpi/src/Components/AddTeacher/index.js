@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
-const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, teacherMember, guestMode}) => {
+const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, addTeacher, guestMode}) => {
   const [textFields, setTextFields] = useState({
     nameTeacher: "", 
     idTeacher: "",
@@ -20,36 +20,36 @@ const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
   }
 
   useEffect(() => {
-    if(dataObject.teachersInfo){
-      let teacherList = dataObject.teachersInfo;
+    if(dataObject.teacherMember){
+      let teacherList = dataObject.teacherMember;
       teacherList[index] = textFields;
       setDataObject(prevState => ({
         ...prevState, 
-        teachersInfo: teacherList
+        teacherMember: teacherList
       }));
     }
-  }, [textFields, setDataObject, dataObject.teachersInfo, index]);
+  }, [textFields, setDataObject, dataObject.teacherMember, index]);
 
   useEffect(() => {
-    if(teacherMember[index][0]){
+    if(addTeacher[index][0]){
       setTextFields(prevState => ({
-      nameTeacher: teacherMember[index][0][0],
-      idTeacher: teacherMember[index][0][1],
-      subject: teacherMember[index][0][2]
+      nameTeacher: addTeacher[index][0][0],
+      idTeacher: addTeacher[index][0][1],
+      subject: addTeacher[index][0][2]
       }))
     }
-  }, [teacherMember, index]);
+  }, [addTeacher, index]);
 
   const addRemove = e => {
     if(trigger){
       handleAdd(Math.floor(Math.random()*1000))
     } else {
       handleDelete(dataKey)
-      let copyData = dataObject.teachersInfo;
+      let copyData = dataObject.teacherMember;
       copyData = copyData.splice(index, 1)
       setDataObject(prevState => ({
         ...prevState, 
-        teachersInfo: copyData
+        teacherMember: copyData
       }))
     } 
   }

@@ -2,8 +2,14 @@ import React, {useState, useEffect} from 'react';
 import './styles.css';
 import AddStudent from '../../Components/AddStudent';
 import AddTeacher from '../../Components/AddTeacher';
+import AddDoc from '../../Components/AddDoc';
+import api from '../../API';
 
 const CreateProject = ({title, projectData, guestMode}) =>{
+  const [addStudent, setAddStudent] = useState([]);
+  const [addTeacher, setAddTeacher] = useState([]);
+  const [document, setDocument] = useState();
+
   const [dataObject, setDataObject] = useState({
     proyectName: "",
     releaseDate: "",
@@ -17,8 +23,8 @@ const CreateProject = ({title, projectData, guestMode}) =>{
     enterpriseContact: "",
     firstNameContact: "",
     lastNameContact: "",
-    studentsInfo: [],
-    teachersInfo: []
+    studentMember: [],
+    teacherMember: [],
   })
 
   useEffect(() => {
@@ -29,12 +35,9 @@ const CreateProject = ({title, projectData, guestMode}) =>{
       }
       if(projectData.teacherMember){
         setAddTeacher(Object.keys(projectData.teacherMember).map((key) => [projectData.teacherMember[key]]));
-      }
+      }      
     }
   }, [projectData])
-
-  const [addStudent, setAddStudent] = useState([]);
-  const [addTeacher, setAddTeacher] = useState([]);
 
   const handleType = e => {
     const {id, value} = e.target;
@@ -58,6 +61,10 @@ const CreateProject = ({title, projectData, guestMode}) =>{
 
   function deleteTeacher(key){
     setAddTeacher(addTeacher.filter((item) => (item !== key)));
+  }
+
+  const onProjectSubmit = () => {
+    console.log(dataObject);
   }
 
   return(
@@ -208,6 +215,13 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                   </div>
                 </div>
               </div>
+              <div className="form-group">
+                <div className="form-row">
+                  <div className="col">
+                    <AddDoc setDocument={setDocument} />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="card shadow mb-3">
@@ -350,7 +364,7 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                           dataObject={dataObject} 
                           setDataObject={setDataObject} 
                           index={index} 
-                          teacherMember={addTeacher} 
+                          addTeacher={addTeacher} 
                           guestMode={guestMode}
                         />
                       )
@@ -366,7 +380,7 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                           dataObject={dataObject} 
                           setDataObject={setDataObject} 
                           index={index} 
-                          teacherMember={addTeacher} 
+                          addTeacher={addTeacher} 
                           guestMode={guestMode}
                         />
                       )
@@ -383,7 +397,7 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                 id="proyectBtn" 
                 className="btn btn-primary text-capitalize font-weight-bold" 
                 type="button" 
-                onClick={() => console.log("Value: ",dataObject)}
+                onClick={onProjectSubmit}
                 >Guardar datos
                 </button>
               <button 
@@ -393,8 +407,7 @@ const CreateProject = ({title, projectData, guestMode}) =>{
               >Eliminar Proyecto</button>
             </div>
             )
-          }
-          
+          } 
         </div>
       </form>
     </div>

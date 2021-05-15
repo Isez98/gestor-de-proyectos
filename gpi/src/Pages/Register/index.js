@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import TecLogo from '../../Assets/img/tecnm-1.png';
-import { Container, Row, Col, Card } from 'react-bootstrap';
 import RegisterForm from '../../Components/RegisterForm'
 import '../Login/styles.css';
 
