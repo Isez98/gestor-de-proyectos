@@ -3,6 +3,7 @@ import './styles.css';
 import AddStudent from '../../Components/AddStudent';
 import AddTeacher from '../../Components/AddTeacher';
 import apis from '../../API';
+import AddDoc from '../../Components/AddDoc';
 
 const CreateProject = ({title, projectData, guestMode, edit}) =>{
   const [dataObject, setDataObject] = useState({
@@ -36,6 +37,7 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
 
   const [addStudent, setAddStudent] = useState([]);
   const [addTeacher, setAddTeacher] = useState([]);
+  const [documentUpload, setDocumentUpload] = useState(new File([""], ""));
 
   const handleType = e => {
     const {id, value} = e.target;
@@ -64,11 +66,22 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
   const onSubmit = async () => {
     try {
       if(!edit){
-        apis.postProject(dataObject).then(() => alert("Se creo el proyecto con exito!"));
+        //Structure Document form data to upload file
+        const formData = new FormData();
+        formData.append('fileName', documentUpload.name);
+        formData.append('document', documentUpload);  
+        setDataObject(prev => ({
+          ...prev,
+          projectFileName: documentUpload.name
+        }))        
+        //project info upload to database
+        apis.postProject(dataObject).then(response => {
+          apis.postDocument({'id': response.data.id, formData}); 
+        }).then(() => alert("El proyecto se creo con exito!"));        
+
       }else {
-        //console.log(dataObject);
         await apis.putProject(dataObject).then(() => alert("Los cambios se guardaron exitosamente!"));
-      }
+      } 
       
     } catch (error) {
       console.log(error.message);
@@ -219,6 +232,15 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
                         className="border rounded form-control" 
                         style={{padding: "6px 12px", color: "rgb(110, 112, 126)", height: "100px"}}
                       />
+                    </div>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <div className="form-row">
+                    <div className="col">
+                      <div className="form-group">
+                        <AddDoc setDocumentUpload={setDocumentUpload} documentUpload={documentUpload} />
+                      </div>
                     </div>
                   </div>
                 </div>
