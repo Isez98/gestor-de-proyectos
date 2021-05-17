@@ -30,8 +30,7 @@ const newProyectSchema = new Schema({
     required: true
   },
   projectComment: {
-    type: String,
-    required: true
+    type: String
   },
   enterpriseProject: {
     type: String,
@@ -56,6 +55,9 @@ const newProyectSchema = new Schema({
   teacherMember: {
     type: Object,
     required: true
+  },
+  projectFileName: {
+    type: String
   }
 })
 
