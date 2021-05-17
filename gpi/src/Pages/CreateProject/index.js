@@ -4,7 +4,7 @@ import AddStudent from '../../Components/AddStudent';
 import AddTeacher from '../../Components/AddTeacher';
 import apis from '../../API';
 
-const CreateProject = ({title, projectData, guestMode}) =>{
+const CreateProject = ({title, projectData, guestMode, edit}) =>{
   const [dataObject, setDataObject] = useState({
     proyectName: "",
     releaseDate: "",
@@ -61,11 +61,17 @@ const CreateProject = ({title, projectData, guestMode}) =>{
     setAddTeacher(addTeacher.filter((item) => (item !== key)));
   }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     try {
-      apis.postProject(dataObject).then(response => alert("Se creo el proyecto con exito!"));
+      if(!edit){
+        apis.postProject(dataObject).then(() => alert("Se creo el proyecto con exito!"));
+      }else {
+        //console.log(dataObject);
+        await apis.putProject(dataObject).then(() => alert("Los cambios se guardaron exitosamente!"));
+      }
+      
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 

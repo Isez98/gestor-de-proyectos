@@ -24,7 +24,7 @@ const Project = ({ guestMode }) => {
   
   return(
     <div className="w-100">
-      <CreateProject title="Vista de proyecto" projectData={projectData} guestMode={guestMode}/>
+      <CreateProject title="Vista de proyecto" projectData={projectData} guestMode={guestMode} edit={true}/>
     </div>
   );
 };
