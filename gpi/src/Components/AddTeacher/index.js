@@ -22,7 +22,7 @@ const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
   useEffect(() => {
     if(dataObject.teacherMember){
       let teacherList = dataObject.teacherMember;
-      teacherList[index] = textFields;
+      teacherList[index] = [textFields.nameTeacher, textFields.idTeacher, textFields.subject];
       setDataObject(prevState => ({
         ...prevState, 
         teacherMember: teacherList
@@ -32,11 +32,11 @@ const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
 
   useEffect(() => {
     if(addTeacher[index][0]){
-      setTextFields(prevState => ([
-      addTeacher[index][0][0],
-      addTeacher[index][0][1],
-      addTeacher[index][0][2]
-      ]))
+      setTextFields(prevState => ({
+      nameTeacher: addTeacher[index][0][0],
+      idTeacher: addTeacher[index][0][1],
+      subject: addTeacher[index][0][2]
+      }))
     }
   }, [addTeacher, index]);
 

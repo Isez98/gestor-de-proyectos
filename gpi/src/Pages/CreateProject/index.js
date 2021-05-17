@@ -2,14 +2,9 @@ import React, {useState, useEffect} from 'react';
 import './styles.css';
 import AddStudent from '../../Components/AddStudent';
 import AddTeacher from '../../Components/AddTeacher';
-import AddDoc from '../../Components/AddDoc';
-import api from '../../API';
+import apis from '../../API';
 
 const CreateProject = ({title, projectData, guestMode}) =>{
-  const [addStudent, setAddStudent] = useState([]);
-  const [addTeacher, setAddTeacher] = useState([]);
-  const [document, setDocument] = useState();
-
   const [dataObject, setDataObject] = useState({
     proyectName: "",
     releaseDate: "",
@@ -24,20 +19,23 @@ const CreateProject = ({title, projectData, guestMode}) =>{
     firstNameContact: "",
     lastNameContact: "",
     studentMember: {},
-    teacherMember: {},
+    teacherMember: {}
   })
 
   useEffect(() => {
     if(projectData){
       setDataObject(projectData)
       if(projectData.studentMember){
-        setAddStudent(projectData.studentMember.map((key) => [projectData.studentMember][key]));
+        setAddStudent(Object.keys(projectData.studentMember).map((key) => [projectData.studentMember[key]]));
       }
       if(projectData.teacherMember){
-        setAddTeacher(projectData.teacherMember.map(() => [projectData.teacherMember]));
-      }      
+        setAddTeacher(Object.keys(projectData.teacherMember).map((key) => [projectData.teacherMember[key]]));
+      }
     }
   }, [projectData])
+
+  const [addStudent, setAddStudent] = useState([]);
+  const [addTeacher, setAddTeacher] = useState([]);
 
   const handleType = e => {
     const {id, value} = e.target;
@@ -63,16 +61,12 @@ const CreateProject = ({title, projectData, guestMode}) =>{
     setAddTeacher(addTeacher.filter((item) => (item !== key)));
   }
 
-  const onProjectSubmit = () => {
-    console.log(addStudent);
-    // try {
-    //   api.postProject(dataObject).then(response => {
-    //     alert(response.message)
-    //   })
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    
+  const onSubmit = () => {
+    try {
+      apis.postProject(dataObject).then(response => alert("Se creo el proyecto con exito!"));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return(
@@ -220,13 +214,6 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                         style={{padding: "6px 12px", color: "rgb(110, 112, 126)", height: "100px"}}
                       />
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div className="form-group">
-                <div className="form-row">
-                  <div className="col">
-                    <AddDoc setDocument={setDocument} />
                   </div>
                 </div>
               </div>
@@ -405,7 +392,7 @@ const CreateProject = ({title, projectData, guestMode}) =>{
                 id="proyectBtn" 
                 className="btn btn-primary text-capitalize font-weight-bold" 
                 type="button" 
-                onClick={onProjectSubmit}
+                onClick={onSubmit}
                 >Guardar datos
                 </button>
               <button 
@@ -415,7 +402,8 @@ const CreateProject = ({title, projectData, guestMode}) =>{
               >Eliminar Proyecto</button>
             </div>
             )
-          } 
+          }
+          
         </div>
       </form>
     </div>

@@ -44,19 +44,24 @@ const UserPage = (props) => {
   //gestion del boton de subir los cambios de los datos a la base de datos
   const handleSubmit = async (e) => {
     e.preventDefault();
-    apis.updateUser(userData) 
-
-    //subir imagen al bucket de s3
-    const formData = new FormData();
-    formData.append('imageName', userData.image)
-    formData.append('image', file.file);
-    apis.postFile(formData);
-    const picture = await apis.getFile({"fileName": userData.image})
-    setUserData(prev => ({
-      ...prev,
-      imageURL: `${picture}#t=${performance.now()}`,
-    }))
-    setUser(userData); 
+    try {
+      apis.updateUser(userData);
+      //subir imagen al bucket de s3
+      const formData = new FormData();
+      formData.append('imageName', userData.image)
+      formData.append('image', file.file);
+      apis.postFile(formData);
+      const picture = await apis.getFile({"fileName": userData.image})
+      setUserData(prev => ({
+        ...prev,
+        imageURL: `${picture}#t=${performance.now()}`,
+      }))
+      setUser(userData); 
+      alert("Los cambios se guardaron con exito!");
+    } catch (error) {
+      alert(error)
+    }
+    
   }
 
   return(

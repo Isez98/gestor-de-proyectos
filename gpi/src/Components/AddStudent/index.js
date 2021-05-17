@@ -4,7 +4,10 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import './styles.css';
  
 const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, index, setDataObject, addStudent, guestMode}) =>{
-  const [textFields, setTextFields] = useState([])
+  const [textFields, setTextFields] = useState({
+    studentName: "", 
+    studentID: ""
+  })
 
   const classAdd = "btn btn-success btn-student";
   const classRemove ="btn btn-danger btn-student";
@@ -20,7 +23,7 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
   useEffect(() => {
     if(dataObject.studentMember){
       let studentList = dataObject.studentMember;
-      studentList[index] = textFields;
+      studentList[index] = [textFields.studentName, textFields.studentID];
       setDataObject(prevState => ({
         ...prevState, 
         studentMember: studentList
@@ -30,10 +33,10 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
 
   useEffect(() => {
     if(addStudent[index][0]){
-      setTextFields(prevState => ([
-      addStudent[index][0][0],
-      addStudent[index][0][1]
-      ]))
+      setTextFields(prevState => ({
+      studentName: addStudent[index][0][0],
+      studentID: addStudent[index][0][1]
+      }))
     }
   }, [addStudent, index]);
 
