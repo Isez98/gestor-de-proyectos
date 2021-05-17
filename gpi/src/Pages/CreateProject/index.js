@@ -20,7 +20,8 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
     firstNameContact: "",
     lastNameContact: "",
     studentMember: {},
-    teacherMember: {}
+    teacherMember: {},
+    projectFileName: ''
   })
 
   useEffect(() => {
