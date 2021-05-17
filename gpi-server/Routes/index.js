@@ -32,11 +32,16 @@ router.get('/:userName', auth, async (req, res) => {
   }
 })
 
-//user profile image upload
-router.post('/upload/users/pictures/', AWS.upload.array("image", 1), async (req, res) => {
+//user profile image upload and fetch
+router.post('/upload/users/pictures/', AWS.uploadImage.array("image", 1), async(req, res) => {
   console.log("Successfully uploaded!");
 });
+router.get('/upload/users/pictures/:fileName', AWS.getImage);
 
-router.get('/upload/users/pictures/:fileName', AWS.getFile)
+//Project file upload and fetch
+router.post('/upload/projects/:id', AWS.uploadDocument.array("document", 1), async(req, res) =>{
+  console.log("Project file uploaded!");
+});
+router.get('/upload/projects/:id/:fileName', AWS.getDocument);
 
 module.exports = router
