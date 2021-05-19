@@ -240,7 +240,7 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
                   <div className="form-row">
                     <div className="col">
                       <div className="form-group">
-                        <AddDoc setDocumentUpload={setDocumentUpload} documentUpload={documentUpload} />
+                        <AddDoc isDisabled={dataObject.projectFileName} setDocumentUpload={setDocumentUpload} documentUpload={documentUpload} />
                       </div>
                     </div>
                   </div>

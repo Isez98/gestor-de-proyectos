@@ -27,7 +27,7 @@ export const getFile = payload => api.get(`/upload/users/pictures/${payload.file
 //Document upload AWS S3
 export const postDocument = payload => api.post(`/upload/projects/${payload.id}`, payload.formData, { headers: {'Content-Type':'multipart/form-data'} });
 //Get document url from AWS S3
-export const getDocument = payload => api.get(`/upload/projects/${payload._id}/${payload.fileName}`, payload).then(response => { return response.data.data});
+export const getDocument = payload => api.get(`/upload/projects/${payload._id}/${payload.projectFileName}`, payload).then(response => { return response.data.data});
 
 const apis = {
   getUsers,
