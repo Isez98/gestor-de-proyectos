@@ -19,14 +19,12 @@ const AddDoc = ({setDocumentUpload, documentUpload, isDisabled}) => {
           <span>
             <input disabled id="fileButton" type="button" value="Subir documento" onClick={buttonClick}/>
             <input disabled type="file" style={{display: 'none'}} id="hiddenFile" name="hiddenFile" onChange={onFileChange}/>
-            <label disabled id="file-name" htmlFor="fileButton">{documentUpload.name}</label>
-            <DocumentButton />
+            <DocumentButton fileName={documentUpload.name} />
           </span>
           ) : (
           <span>
             <input id="fileButton" type="button" value="Subir documento" onClick={buttonClick}/>
-            <input type="file" style={{display: 'none'}} id="hiddenFile" name="hiddenFile" onChange={onFileChange}/>
-            <label id="file-name" htmlFor="fileButton">{documentUpload.name}</label>            
+            <input type="file" style={{display: 'none'}} id="hiddenFile" name="hiddenFile" onChange={onFileChange}/>         
           </span>
         )
       }      
