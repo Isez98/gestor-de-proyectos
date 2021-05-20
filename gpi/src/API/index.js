@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:1818'
+  baseURL: "http://localhost:1818",
 });
 
 //User API Requests
@@ -18,31 +18,48 @@ export const postProject = payload => api.post('/project', payload).then(respons
 export const putProject = payload => api.put(`/project/${payload._id}`, payload).then(response => {return response}); 
 export const deleteProject = payload => api.delete(`/project/${payload.id}`, payload).then((response) => { return response.data.data });
 
+
 //Image upload AWS S3
-export const postFile = payload => api.post(`/upload/users/pictures/`, payload, { headers: {'Content-Type':'multipart/form-data'}});
+export const postFile = (payload) =>
+  api.post(`/upload/users/pictures/`, payload, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 //Get image url from AWS S3
-export const getFile = payload => api.get(`/upload/users/pictures/${payload.fileName}`, payload).then(response => { return response.data.data });
+export const getFile = (payload) =>
+  api
+    .get(`/upload/users/pictures/${payload.fileName}`, payload)
+    .then((response) => {
+      return response.data.data;
+    });
 
 //Document upload AWS S3
-export const postDocument = payload => api.post(`/upload/projects/${payload.id}`, payload.formData, { headers: {'Content-Type':'multipart/form-data'} });
+export const postDocument = (payload) =>
+  api.post(`/upload/projects/${payload.id}`, payload.formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 //Get document url from AWS S3
-export const getDocument = payload => api.get(`/upload/projects/${payload._id}/${payload.projectFileName}`, payload).then(response => { return response.data.data});
+export const getDocument = (payload) =>
+  api
+    .get(`/upload/projects/${payload._id}/${payload.projectFileName}`, payload)
+    .then((response) => {
+      return response.data.data;
+    });
 
 const apis = {
   getUsers,
   createUser,
+  updateUser,
   getUserByEmail,
-  login, 
+  login,
   getProjects,
   getProjectById,
   postFile,
-  updateUser,
   getFile,
   postProject,
   putProject,
   deleteProject,
   postDocument,
-  getDocument
+  getDocument,
 };
 
 export default apis;

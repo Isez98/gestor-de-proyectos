@@ -1,64 +1,64 @@
-const { model , Schema} = require('mongoose')
+const { model, Schema } = require("mongoose");
 
 const newProyectSchema = new Schema({
   proyectName: {
     type: String,
-    required: true
+    required: true,
   },
   releaseDate: {
     type: String,
-    required: true
+    required: true,
   },
   startDate: {
     type: String,
-    required: true
+    required: true,
   },
   conclusionDate: {
     type: String,
-    required: true
+    required: true,
   },
   typeProyect: {
     type: String,
-    required: true
+    required: true,
   },
   objectiveProject: {
     type: String,
-    required: true
+    required: true,
   },
   statusProject: {
     type: String,
-    required: true
+    required: true,
   },
   projectComment: {
-    type: String
+    type: String,
   },
   enterpriseProject: {
     type: String,
-    required: true
+    required: true,
   },
   enterpriseContact: {
     type: String,
-    required: true
+    required: true,
   },
   firstNameContact: {
     type: String,
-    required: true
+    required: true,
   },
   lastNameContact: {
     type: String,
-    required: true
+    required: true,
   },
   studentMember: {
     type: Object,
-    required: true
+    required: true,
   },
   teacherMember: {
     type: Object,
-    required: true
+    required: true,
   },
   projectFileName: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 
-module.exports = model('Proyect', newProyectSchema);
+module.exports = model("Proyect", newProyectSchema);

@@ -1,5 +1,5 @@
 # Gestor De Proyectos Institucionales
-### To run the project
+### To run the project // Para ejecutar el proyecto
 ##### Frontend
 ```sh
 $ cd gpi

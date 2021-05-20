@@ -3,7 +3,7 @@ import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faTrash, faCopy } from '@fortawesome/free-solid-svg-icons'; 
 
-const DocumentButton = () => {
+const DocumentButton = ({ fileName }) => {
 
   const buttonClick = () => {
     document.querySelector(`#fileBtnDrop`).click();
@@ -13,7 +13,7 @@ const DocumentButton = () => {
     <span>
       <span id="file__span-container">        
         <button id="fileBtnDrop" type="button" class="w-25 btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="font-weight-bolder"><u>Action</u></span>
+          <span class="font-weight-bolder"><u>{fileName}</u></span>
           <span>•••</span>
         </button>
         <span class="dropdown-menu dropdown-menu-right">
