@@ -4,6 +4,7 @@ import AddStudent from "../../Components/AddStudent";
 import AddTeacher from "../../Components/AddTeacher";
 import apis from "../../API";
 import AddDoc from "../../Components/AddDoc";
+import { useParams } from "react-router-dom";
 
 const CreateProject = ({ title, projectData, guestMode, edit }) => {
   const [dataObject, setDataObject] = useState({
@@ -99,9 +100,14 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
       console.log(error.message);
     }
   };
+  // Delete Project
+  let { id } = useParams();
 
   const deleteProject = async () => {
-    apis.deleteProject(_).then(() => {
+    const payload = {
+      id: id,
+    };
+    apis.deleteProject(payload).then((result) => {
       window.alert("El proyecto se eliminó satisfactoriamente");
     });
   };
