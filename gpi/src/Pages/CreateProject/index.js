@@ -5,10 +5,9 @@ import AddTeacher from "../../Components/AddTeacher";
 import apis from "../../API";
 import AddDoc from "../../Components/AddDoc";
 import { useParams } from "react-router-dom";
-import ReactNotification from 'react-notifications-component'
-import 'react-notifications-component/dist/theme.css'
-import { store } from 'react-notifications-component';
-
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import { store } from "react-notifications-component";
 
 const CreateProject = ({ title, projectData, guestMode, edit }) => {
   const [dataObject, setDataObject] = useState({
@@ -90,25 +89,27 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
         }));
         //project info upload to database
 
-        apis.postProject(dataObject).then(response => {
-          apis.postDocument({'id': response.data.id, formData}); 
-        }).then(() => {
-          store.addNotification({
-            title: "Proyecto registrado con exito",
-            message: "El proyecto se ha registrado con exito en la base de datos",
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animate__animated", "animate__fadeIn"],
-            animationOut: ["animate__animated", "animate__fadeOut"],
-            dismiss: {
-              duration: 3500,
-              onScreen: true
-            }
+        apis
+          .postProject(dataObject)
+          .then((response) => {
+            apis.postDocument({ id: response.data.id, formData });
+          })
+          .then(() => {
+            store.addNotification({
+              title: "Proyecto registrado con exito",
+              message: "El proyecto se ha registrado con exito en la base de datos",
+              type: "sucess",
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animate__animated", "animate__fadeIn"],
+              animationOut: ["animate__animated", "animate__fadeOut"],
+              dismiss: {
+                duration: 3500,
+                onScreen: true,
+              },
+            });
           });
-        });        
-
-      }else {
+      } else {
         await apis.putProject(dataObject).then(() => {
           store.addNotification({
             title: "Proyecto actualizado con exito",
@@ -120,17 +121,15 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
             animationOut: ["animate__animated", "animate__fadeOut"],
             dismiss: {
               duration: 3500,
-              onScreen: true
-            }
+              onScreen: true,
+            },
           });
         });
-      } 
-      
+      }
     } catch (error) {
       console.log(error.message);
     }
-
-  }
+  };
 
   // Delete Project
   let { id } = useParams();
@@ -150,13 +149,13 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
           duration: 3500,
-          onScreen: true
-        }
+          onScreen: true,
+        },
       });
     });
   };
 
-  return(
+  return (
     <div id="create-container" className="w-100 text-left">
       <div className="container-fluid"></div>
       <div className="d-sm-flex justify-content-between align-items-center">
