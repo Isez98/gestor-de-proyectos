@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import './styles.css';
-import AddStudent from '../../Components/AddStudent';
-import AddTeacher from '../../Components/AddTeacher';
-import apis from '../../API';
-import AddDoc from '../../Components/AddDoc';
+import React, { useState, useEffect } from "react";
+import "./styles.css";
+import AddStudent from "../../Components/AddStudent";
+import AddTeacher from "../../Components/AddTeacher";
+import apis from "../../API";
+import AddDoc from "../../Components/AddDoc";
+import { useParams } from "react-router-dom";
 
 const CreateProject = ({title, projectData, guestMode, edit}) =>{
   const [dataObject, setDataObject] = useState({
@@ -87,7 +88,20 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
     } catch (error) {
       console.log(error.message);
     }
+
   }
+
+  // Delete Project
+  let { id } = useParams();
+
+  const deleteProject = async () => {
+    const payload = {
+      id: id,
+    };
+    apis.deleteProject(payload).then((result) => {
+      window.alert("El proyecto se eliminó satisfactoriamente");
+    });
+  };
 
   return(
     <div id="create-container" className="w-100 text-left">
