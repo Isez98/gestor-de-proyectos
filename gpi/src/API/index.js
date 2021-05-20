@@ -8,9 +8,7 @@ const api = axios.create({
 export const getUsers = payload => api.get('/users', payload);
 export const createUser = payload => api.post('/users', payload);
 export const getUserByEmail = payload => api.get(`/user/${payload.email}`, payload).then(response => { return response.data.data; })
-export const login = payload => api.post('/login', payload).then(response => {
-  localStorage.setItem("ACCESS_TOKEN", response.data.token);
-})
+export const login = payload => api.post('/login', payload).then(response => { localStorage.setItem("ACCESS_TOKEN", response.data.token) })
 export const updateUser = payload => api.put(`/user/${payload._id}`, payload).then(response => { return response.data })
 
 //Projects API Requests
@@ -18,6 +16,7 @@ export const getProjects = payload => api.get('/projects', payload).then(respons
 export const getProjectById = payload => api.get(`/project/${payload.id}`, payload).then(response => { return response.data.data });
 export const postProject = payload => api.post('/project', payload).then(response => {return response});
 export const putProject = payload => api.put(`/project/${payload._id}`, payload).then(response => {return response}); 
+export const deleteProject = payload => api.delete(`/project/${payload.id}`, payload).then((response) => { return response.data.data });
 
 //Image upload AWS S3
 export const postFile = payload => api.post(`/upload/users/pictures/`, payload, { headers: {'Content-Type':'multipart/form-data'}});
@@ -41,6 +40,7 @@ const apis = {
   getFile,
   postProject,
   putProject,
+  deleteProject,
   postDocument,
   getDocument
 };

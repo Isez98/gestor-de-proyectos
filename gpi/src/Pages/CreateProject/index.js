@@ -5,6 +5,9 @@ import AddTeacher from "../../Components/AddTeacher";
 import apis from "../../API";
 import AddDoc from "../../Components/AddDoc";
 import { useParams } from "react-router-dom";
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import { store } from 'react-notifications-component';
 
 const CreateProject = ({title, projectData, guestMode, edit}) =>{
   const [dataObject, setDataObject] = useState({
@@ -79,10 +82,38 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
         //project info upload to database
         apis.postProject(dataObject).then(response => {
           apis.postDocument({'id': response.data.id, formData}); 
-        }).then(() => alert("El proyecto se creo con exito!"));        
+        }).then(() => {
+          store.addNotification({
+            title: "Proyecto registrado con exito",
+            message: "El proyecto se ha registrado con exito en la base de datos",
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3500,
+              onScreen: true
+            }
+          });
+        });        
 
       }else {
-        await apis.putProject(dataObject).then(() => alert("Los cambios se guardaron exitosamente!"));
+        await apis.putProject(dataObject).then(() => {
+          store.addNotification({
+            title: "Proyecto actualizado con exito",
+            message: "El proyecto se ha actualizado con exito en la base de datos",
+            type: "info",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 3500,
+              onScreen: true
+            }
+          });
+        });
       } 
       
     } catch (error) {
@@ -99,7 +130,19 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
       id: id,
     };
     apis.deleteProject(payload).then((result) => {
-      window.alert("El proyecto se eliminó satisfactoriamente");
+      store.addNotification({
+        title: "Proyecto eliminado",
+        message: "El proyecto se ha eliminado con exito de la base de datos",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 3500,
+          onScreen: true
+        }
+      });
     });
   };
 
@@ -439,7 +482,7 @@ const CreateProject = ({title, projectData, guestMode, edit}) =>{
                 >Guardar datos
                 </button>
               <button 
-              onClick={() => {alert("This is an alert!")}} id="deleteBtn" 
+              onClick={deleteProject} id="deleteBtn" 
               className="btn btn-danger text-capitalize font-weight-bold" 
               type="button"
               >Eliminar Proyecto</button>
