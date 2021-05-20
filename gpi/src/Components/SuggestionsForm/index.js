@@ -35,7 +35,11 @@ function SuggestionsForm() {
                         height: "100px",
                       }}
                     />
-                    <button type="submit" disabled={state.submitting}>
+                    <button
+                      type="submit"
+                      className="btn btn-primary text-capitalize font-weight-bold"
+                      disabled={state.submitting}
+                    >
                       Enviar
                     </button>
                   </div>
