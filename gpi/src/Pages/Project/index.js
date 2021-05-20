@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import CreateProject from '../CreateProject';
-import apis from '../../API';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import CreateProject from "../CreateProject";
+import apis from "../../API";
 
 const Project = ({ guestMode }) => {
-
   const [projectData, setProjectData] = useState({});
   let { id } = useParams();
-  
+
   useEffect(() => {
-    try
-    {
+    try {
       const payload = {
-        "id": id,
-      }
-      apis.getProjectById(payload).then(result => {
-        setProjectData(result)
+        id: id,
+      };
+      apis.getProjectById(payload).then((result) => {
+        setProjectData(result);
       });
-    }catch(error){
-      alert(error)
+    } catch (error) {
+      alert(error);
     }
-  }, [id])
-  
-  return(
+  }, [id]);
+
+  return (
     <div className="w-100">
-      <CreateProject 
-        title="Vista de proyecto" 
-        projectData={projectData} 
-        guestMode={guestMode} 
+      <CreateProject
+        title="Vista de proyecto"
+        projectData={projectData}
+        guestMode={guestMode}
         edit={true}
       />
     </div>
   );
 };
 
-export default Project; 
+export default Project;
