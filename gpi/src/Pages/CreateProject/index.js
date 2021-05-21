@@ -16,9 +16,9 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
     releaseDate: "",
     startDate: "",
     conclusionDate: "",
-    typeProyect: "",
-    objectiveProject: "",
-    statusProject: "",
+    typeProyect: "Desarrollo de software",
+    objectiveProject: "Objetivo del proyecto",
+    statusProject: "Cancelado",
     projectComment: "",
     enterpriseProject: "",
     enterpriseContact: "",
@@ -272,7 +272,7 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
                       }}
                     >
                       <optgroup label="Tipo de proyecto">
-                        <option value="Desarrollo de software" defaultValue="">
+                        <option value="Desarrollo de software">
                           Desarrollo de software
                         </option>
                         <option value="Paquete tecnologico">
@@ -301,7 +301,7 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
                       }}
                     >
                       <optgroup label="Objetivo del proyecto">
-                        <option value="Integrador" defaultValue="">
+                        <option value="Integrador">
                           Integrador
                         </option>
                         <option value="Titulacion">Titulacion</option>
@@ -326,7 +326,7 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
                       }}
                     >
                       <optgroup label="Estatus del proyecto">
-                        <option value="Cancelado" defaultValue="">
+                        <option value="Cancelado">
                           Cancelado
                         </option>
                         <option value="En desarrollo">En desarrollo</option>
