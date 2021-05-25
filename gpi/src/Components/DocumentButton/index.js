@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faTrash, faCopy } from '@fortawesome/free-solid-svg-icons'; 
 import { useParams } from 'react-router-dom';
 import apis from '../../API';
 import axios from 'axios';
+import Modal from '../Modal';
 
 const DocumentButton = ({ fileName }) => {
   let { id } = useParams();
+  const [modal, setModal] = useState(false);
 
   const downloadFile = () => {
     const payload = {
@@ -31,7 +33,7 @@ const DocumentButton = ({ fileName }) => {
       });
     });
   }
-  
+
   return(
     <span className="ml-3">
       <span id="file__span-container">        
@@ -48,9 +50,9 @@ const DocumentButton = ({ fileName }) => {
             </div>
           </a>
           {/* eslint-disable-next-line */}
-          <a className="dropdown-item" href="#">
+          <a className="dropdown-item" href="#" onClick={() => setModal(true)}>
             <div className="pl-1">
-              <FontAwesomeIcon className="w-25 mr-1" icon={faTrash} />
+              <FontAwesomeIcon className="w-25 mr-1" icon={faTrash}/>
               <span className="pr-3 w-50 text-left">Borrar</span>              
             </div>
           </a>
@@ -63,6 +65,7 @@ const DocumentButton = ({ fileName }) => {
           </a>
         </span>
       </span>
+      <Modal modal={modal} setModal={setModal}></Modal>
     </span>
   );
 }

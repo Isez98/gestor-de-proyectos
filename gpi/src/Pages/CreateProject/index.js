@@ -46,7 +46,12 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
         );
       }
     }
-  }, [projectData]);
+    if(guestMode){
+      for (var i = 0, len = document.getElementById("projectID").elements.length; i < len; ++i) {
+        document.getElementById("projectID").elements[i].readOnly = true;
+    }
+    }
+  }, [projectData, guestMode]);
 
   const [addStudent, setAddStudent] = useState([]);
   const [addTeacher, setAddTeacher] = useState([]);
@@ -165,7 +170,8 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
       </div>
       <div className="row" />
       <form
-        className={`needs-validation ${guestMode ? "disabled" : ""}`}
+        id="projectID"
+        className={`needs-validation`}
         noValidate
       >
         <div className="col-xl-12 offset-xl-0">
@@ -363,6 +369,7 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
                       <div className="form-group">
                         <AddDoc
                           isDisabled={dataObject.projectFileName}
+                          guestMode={guestMode}
                           setDocumentUpload={setDocumentUpload}
                           documentUpload={documentUpload}
                         />
@@ -556,10 +563,10 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
             </div>
           </div>
           {guestMode ? null : (
-            <div className="form-group">
+            <div className="form-group d-flex justify-content-between mt-4">
               <button
                 id="proyectBtn"
-                className="btn btn-primary text-capitalize font-weight-bold"
+                className="btn btn-outline-primary text-capitalize font-weight-bold"
                 type="button"
                 onClick={onSubmit}
               >
@@ -568,7 +575,8 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
               <button
                 onClick={deleteProject}
                 id="deleteBtn"
-                className="btn btn-danger text-capitalize font-weight-bold"
+                className="btn btn-outline-danger text-capitalize font-weight-bold flex-end"
+                style={edit ? {display: 'block'} : {display: 'none'}}
                 type="button"
               >
                 Eliminar Proyecto

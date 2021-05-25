@@ -2,7 +2,7 @@ import React from 'react';
 import DocumentButton from '../DocumentButton';
 import './styles.css';
 
-const AddDoc = ({setDocumentUpload, documentUpload, isDisabled}) => {
+const AddDoc = ({setDocumentUpload, documentUpload, isDisabled, guestMode}) => {
 
   const buttonClick = () => {
     document.querySelector(`#hiddenFile`).click();
@@ -17,14 +17,39 @@ const AddDoc = ({setDocumentUpload, documentUpload, isDisabled}) => {
       {
         isDisabled || documentUpload.name ? (
           <span>
-            <input disabled id="fileButton" type="button" value="Subir documento" onClick={buttonClick}/>
-            <input disabled type="file" style={{display: 'none'}} id="hiddenFile" name="hiddenFile" onChange={onFileChange}/>
+            <input 
+              disabled 
+              id="fileButton" 
+              type="button" 
+              value="Subir documento" 
+              onClick={buttonClick}
+            />
+            <input 
+              disabled 
+              type="file" 
+              style={{display: 'none'}} 
+              id="hiddenFile" 
+              name="hiddenFile" 
+              onChange={onFileChange}
+            />
             <DocumentButton fileName={documentUpload.name || isDisabled} />
           </span>
           ) : (
           <span>
-            <input id="fileButton" type="button" value="Subir documento" onClick={buttonClick}/>
-            <input type="file" style={{display: 'none'}} id="hiddenFile" name="hiddenFile" onChange={onFileChange}/>         
+            <input 
+              disabled={guestMode? true : false}
+              id="fileButton" 
+              type="button" 
+              value="Subir documento" 
+              onClick={buttonClick}
+            />
+            <input 
+              type="file" 
+              style={{display: 'none'}} 
+              id="hiddenFile" 
+              name="hiddenFile" 
+              onChange={onFileChange}
+            />         
           </span>
         )
       }      
