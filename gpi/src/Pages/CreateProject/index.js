@@ -5,7 +5,7 @@ import AddTeacher from "../../Components/AddTeacher";
 import apis from "../../API";
 import AddDoc from "../../Components/AddDoc";
 import { useParams } from "react-router-dom";
-import ReactNotification from "react-notifications-component";
+//import ReactNotification from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 
@@ -157,6 +157,7 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
 
   return (
     <div id="create-container" className="w-100 text-left">
+      {console.log(projectData)}
       <div className="container-fluid"></div>
       <div className="d-sm-flex justify-content-between align-items-center">
         <h3 className="text-dark mb-0 pl-3">
@@ -190,7 +191,6 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
                       className="form-control"
                       type="text"
                       placeholder="Nombre del proyecto"
-                      name="nombre.proyecto"
                     />
                   </div>
                 </div>

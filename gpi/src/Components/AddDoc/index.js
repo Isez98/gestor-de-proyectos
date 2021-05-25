@@ -15,11 +15,11 @@ const AddDoc = ({setDocumentUpload, documentUpload, isDisabled}) => {
   return(
     <span>
       {
-        isDisabled !=="" || documentUpload.name ? (
+        isDisabled || documentUpload.name ? (
           <span>
             <input disabled id="fileButton" type="button" value="Subir documento" onClick={buttonClick}/>
             <input disabled type="file" style={{display: 'none'}} id="hiddenFile" name="hiddenFile" onChange={onFileChange}/>
-            <DocumentButton fileName={documentUpload.name} />
+            <DocumentButton fileName={documentUpload.name || isDisabled} />
           </span>
           ) : (
           <span>
