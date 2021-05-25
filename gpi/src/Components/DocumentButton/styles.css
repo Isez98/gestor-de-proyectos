@@ -2,3 +2,9 @@
   display: inline-flex;
   justify-content: space-between;
 }
+
+#file__span-container > button{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

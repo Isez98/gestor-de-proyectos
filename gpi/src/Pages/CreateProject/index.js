@@ -157,7 +157,6 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
 
   return (
     <div id="create-container" className="w-100 text-left">
-      {console.log(projectData)}
       <div className="container-fluid"></div>
       <div className="d-sm-flex justify-content-between align-items-center">
         <h3 className="text-dark mb-0 pl-3">

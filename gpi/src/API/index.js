@@ -44,6 +44,12 @@ export const getDocument = (payload) =>
     .then((response) => {
       return response.data.data;
     });
+export const downloadDocument = (payload) =>
+    api
+      .get(`/upload/projects/${payload._id}/${payload.projectFileName}`, payload)
+      .then((response) => {
+        return response.data;
+      });
 
 const apis = {
   getUsers,
@@ -60,6 +66,7 @@ const apis = {
   deleteProject,
   postDocument,
   getDocument,
+  downloadDocument,
 };
 
 export default apis;
