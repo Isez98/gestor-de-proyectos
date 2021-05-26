@@ -69,6 +69,7 @@ const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
               type="text" 
               placeholder="Nombre del maestro" 
               name="city"
+              readOnly={guestMode}
             />
           </div>
         </div>
@@ -83,6 +84,7 @@ const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
               type="text" 
               placeholder="Número de empleado" 
               name="city"
+              readOnly={guestMode}
             />
           </div>
         </div>
@@ -98,6 +100,7 @@ const AddTeacher = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
               type="text"
               placeholder="Materia"
               name="city"
+              readOnly={guestMode}
             />
           </div>
         </div>

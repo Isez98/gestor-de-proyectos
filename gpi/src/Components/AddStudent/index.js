@@ -67,8 +67,10 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
               required={true} 
               className="border rounded form-control studentName" 
               type="text" 
-              placeholder="Nombre del alumno" 
-              name="city"/>
+              placeholder="Nombre del alumno"  
+              readOnly={guestMode}
+              name="city"
+              />
           </div>
         </div>
         <div className="col">
@@ -82,6 +84,7 @@ const AddStudent = ({handleAdd, handleDelete, trigger, dataKey, dataObject, inde
               className="form-control studentId" 
               type="text" 
               placeholder="Número de control" 
+              readOnly={guestMode}
               name="city"/>
           </div>
         </div>
