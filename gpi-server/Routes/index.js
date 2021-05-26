@@ -51,5 +51,7 @@ router.post(
   }
 );
 router.get("/upload/projects/:id/:fileName", AWS.getDocument);
+router.delete("/upload/projects/:id/:fileName", AWS.deleteDocument);
+router.delete("/upload/projects/:id", AWS.deleteDirectory);
 
 module.exports = router;

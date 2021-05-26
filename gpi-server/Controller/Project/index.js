@@ -66,6 +66,7 @@ updateProject = async (req, res) => {
     project.lastNameContact = body.lastNameContact;
     project.studentMember = body.studentMember;
     project.teacherMember = body.teacherMember;
+    project.projectFileName = body.projectFileName;
 
     project
       .save()
