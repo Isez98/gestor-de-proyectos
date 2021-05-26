@@ -9,7 +9,8 @@ import { useParams } from "react-router-dom";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 
-const CreateProject = ({ title, projectData, guestMode, edit }) => {
+const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) => {  
+  let { id } = useParams();
   const [dataObject, setDataObject] = useState({
     proyectName: "",
     releaseDate: "",
@@ -27,6 +28,7 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
     teacherMember: {},
     projectFileName: "",
   });
+  const [documentUpload, setDocumentUpload] = useState(new File([""], ""));
 
   useEffect(() => {
     if (projectData) {
@@ -49,13 +51,13 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
     if(guestMode){
       for (var i = 0, len = document.getElementById("projectID").elements.length; i < len; ++i) {
         document.getElementById("projectID").elements[i].readOnly = true;
-    }
+      }
     }
   }, [projectData, guestMode]);
 
   const [addStudent, setAddStudent] = useState([]);
   const [addTeacher, setAddTeacher] = useState([]);
-  const [documentUpload, setDocumentUpload] = useState(new File([""], ""));
+
 
   const handleType = (e) => {
     const { id, value } = e.target;
@@ -82,28 +84,34 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
   }
 
   const onSubmit = async () => {
+    if(documentUpload.name !== dataObject.projectFileName){
+      setDataObject((prev) => ({
+        ...prev,
+        projectFileName: documentUpload.name,
+      }));
+    }
     try {
-      if (!edit) {
-        //Structure Document form data to upload file
-        const formData = new FormData();
-        formData.append("fileName", documentUpload.name);
-        formData.append("document", documentUpload);
-        setDataObject((prev) => ({
-          ...prev,
-          projectFileName: documentUpload.name,
-        }));
-        //project info upload to database
+      //Structure Document form data to upload file      
+      const formData = new FormData();
+      formData.append("fileName", documentUpload.name);
+      formData.append("document", documentUpload);
+      setDataObject((prev) => ({
+        ...prev,
+        projectFileName: documentUpload.name,
+      }));
 
+      if (!edit) {
+        //project info upload to database then upload document
         apis
           .postProject(dataObject)
           .then((response) => {
-            apis.postDocument({ id: response.data.id, formData });
+            apis.postDocument({ id: response.data.id, formData });            
           })
           .then(() => {
             store.addNotification({
               title: "Proyecto registrado con exito",
               message: "El proyecto se ha registrado con exito en la base de datos",
-              type: "sucess",
+              type: "success",
               insert: "top",
               container: "top-right",
               animationIn: ["animate__animated", "animate__fadeIn"],
@@ -113,9 +121,26 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
                 onScreen: true,
               },
             });
-          });
-      } else {
+          }
+        ).then(() => {
+          try {
+            apis.getProjectById({ id }).then(response => {
+              setProjectData(response)
+            }).then(() => {
+              setDataObject(projectData)
+            })            
+          } catch (error) {
+            console.log(error.message);
+          }
+        });
+      }else {
         await apis.putProject(dataObject).then(() => {
+          apis.deleteDocument({_id: id, projectFileName: dataObject.projectFileName}).then((response) => {
+            if (documentUpload.size){ 
+              apis.postDocument({ id: id, formData })
+            } 
+          })          
+        }).then(() => {
           store.addNotification({
             title: "Proyecto actualizado con exito",
             message: "El proyecto se ha actualizado con exito en la base de datos",
@@ -129,16 +154,25 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
               onScreen: true,
             },
           });
+        }).then(() => {
+          try {
+            apis.getProjectById({ id }).then(response => {
+              setProjectData(response)
+            }).then(() => {
+              setDataObject(projectData)
+            })            
+          } catch (error) {
+            console.log(error.message);
+          }
         });
       }
     } catch (error) {
       console.log(error.message);
     }
+    
   };
 
   // Delete Project
-  let { id } = useParams();
-
   const deleteProject = async () => {
     const payload = {
       id: id,
@@ -157,6 +191,9 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
           onScreen: true,
         },
       });
+    }).then(() => {
+      //Delete all objects from folder and delete folder
+      apis.deleteDirectory({id: id});
     });
   };
 
@@ -367,8 +404,9 @@ const CreateProject = ({ title, projectData, guestMode, edit }) => {
                   <div className="form-row">
                     <div className="col">
                       <div className="form-group">
+                        
                         <AddDoc
-                          isDisabled={dataObject.projectFileName}
+                          projectFileName={dataObject.projectFileName}
                           guestMode={guestMode}
                           setDocumentUpload={setDocumentUpload}
                           documentUpload={documentUpload}

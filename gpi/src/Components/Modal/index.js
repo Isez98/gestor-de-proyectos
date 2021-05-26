@@ -3,7 +3,13 @@ import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const Modal = ({modal, setModal}) => {
+const Modal = ({modal, setModal, setDocumentUpload}) => {
+
+  const confirmDelete = (e) => {
+    e.preventDefault();
+    setDocumentUpload(new File([""], ""))
+    setModal(false);
+  }
 
   return (
     <div id="myModal" className="modal" style={modal ? {display: 'block'} : {display: 'none'}}>
@@ -30,9 +36,7 @@ const Modal = ({modal, setModal}) => {
             >Cancelar</button>
             <button 
               className="btn btn-outline-danger"
-              onClick={(e) => {
-                e.preventDefault();
-              }}
+              onClick={confirmDelete}
             >Borrar</button>
           </div>
         </div>               

@@ -25,6 +25,7 @@ const Project = ({ guestMode }) => {
       <CreateProject
         title="Vista de proyecto"
         projectData={projectData}
+        setProjectData={setProjectData}
         guestMode={guestMode}
         edit={true}
       />

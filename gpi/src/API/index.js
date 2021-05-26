@@ -31,7 +31,6 @@ export const getFile = (payload) =>
     .then((response) => {
       return response.data.data;
     });
-
 //Document upload AWS S3
 export const postDocument = (payload) =>
   api.post(`/upload/projects/${payload.id}`, payload.formData, {
@@ -50,6 +49,18 @@ export const downloadDocument = (payload) =>
       .then((response) => {
         return response.data;
       });
+export const deleteDocument = (payload) =>
+    api
+      .delete(`/upload/projects/${payload._id}/${payload.projectFileName}`, payload)
+      .then((response) => {
+        return response.status;
+      });
+export const deleteDirectory = (payload) =>
+      api
+        .delete(`/upload/projects/${payload.id}`, payload)
+        .then((response) => {
+          return response.status;
+        });
 
 const apis = {
   getUsers,
@@ -67,6 +78,8 @@ const apis = {
   postDocument,
   getDocument,
   downloadDocument,
+  deleteDocument,
+  deleteDirectory,
 };
 
 export default apis;

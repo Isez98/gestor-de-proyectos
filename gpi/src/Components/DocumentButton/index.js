@@ -7,14 +7,14 @@ import apis from '../../API';
 import axios from 'axios';
 import Modal from '../Modal';
 
-const DocumentButton = ({ fileName }) => {
+const DocumentButton = ({ documentUpload, guestMode, setDocumentUpload, selectFile, projectFileName }) => {
   let { id } = useParams();
   const [modal, setModal] = useState(false);
 
   const downloadFile = () => {
     const payload = {
       _id: id,
-      projectFileName: fileName
+      projectFileName: documentUpload.name
     }
     apis.downloadDocument(payload).then((response) => {
       axios.get(`${response.data}`, {
@@ -27,7 +27,7 @@ const DocumentButton = ({ fileName }) => {
         );
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", fileName);
+        link.setAttribute("download", documentUpload.name);
         document.body.appendChild(link);
         link.click();
       });
@@ -38,24 +38,29 @@ const DocumentButton = ({ fileName }) => {
     <span className="ml-3">
       <span id="file__span-container">        
         <button id="fileBtnDrop" type="button" className="w-25 btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span className="font-weight-bolder"><u>{fileName}</u></span>
+          <span className="font-weight-bolder"><u>{projectFileName || documentUpload.name}</u></span>
           <span>•••</span>
         </button>
         <span className="dropdown-menu dropdown-menu-right">
-          {/* eslint-disable-next-line */}
-          <a className="dropdown-item" href="#">
-            <div className="pl-1">
-              <FontAwesomeIcon className="w-25 mr-1" icon={faCopy} />
-              <span className="pr-3 w-50 text-left">Reemplazar</span>              
-            </div>
-          </a>
-          {/* eslint-disable-next-line */}
-          <a className="dropdown-item" href="#" onClick={() => setModal(true)}>
-            <div className="pl-1">
-              <FontAwesomeIcon className="w-25 mr-1" icon={faTrash}/>
-              <span className="pr-3 w-50 text-left">Borrar</span>              
-            </div>
-          </a>
+          
+          {!guestMode ? (
+            <>
+            {/* eslint-disable-next-line */}
+              <a className="dropdown-item" href="#" onClick={selectFile}>
+                <div className="pl-1">
+                  <FontAwesomeIcon className="w-25 mr-1" icon={faCopy} />
+                  <span className="pr-3 w-50 text-left">Reemplazar</span>              
+                </div>
+              </a>
+              {/* eslint-disable-next-line */}
+              <a className="dropdown-item" href="#" onClick={() => setModal(true)}>
+                <div className="pl-1">
+                  <FontAwesomeIcon className="w-25 mr-1" icon={faTrash}/>
+                  <span className="pr-3 w-50 text-left">Borrar</span>              
+                </div>
+              </a>
+            </>
+          ) : (<div></div>)}                  
           {/* eslint-disable-next-line */}
           <a className="dropdown-item" href="#" onClick={downloadFile}>
             <div className="pl-1">
@@ -65,7 +70,7 @@ const DocumentButton = ({ fileName }) => {
           </a>
         </span>
       </span>
-      <Modal modal={modal} setModal={setModal}></Modal>
+      <Modal modal={modal} setModal={setModal} setDocumentUpload={setDocumentUpload}></Modal>
     </span>
   );
 }

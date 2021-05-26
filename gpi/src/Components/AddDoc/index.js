@@ -2,7 +2,7 @@ import React from 'react';
 import DocumentButton from '../DocumentButton';
 import './styles.css';
 
-const AddDoc = ({setDocumentUpload, documentUpload, isDisabled, guestMode}) => {
+const AddDoc = ({setDocumentUpload, documentUpload, projectFileName, guestMode }) => {
 
   const buttonClick = () => {
     document.querySelector(`#hiddenFile`).click();
@@ -15,7 +15,7 @@ const AddDoc = ({setDocumentUpload, documentUpload, isDisabled, guestMode}) => {
   return(
     <span>
       {
-        isDisabled || documentUpload.name ? (
+        (documentUpload.name) || projectFileName ? (
           <span>
             <input 
               disabled 
@@ -25,19 +25,26 @@ const AddDoc = ({setDocumentUpload, documentUpload, isDisabled, guestMode}) => {
               onClick={buttonClick}
             />
             <input 
-              disabled 
               type="file" 
               style={{display: 'none'}} 
               id="hiddenFile" 
               name="hiddenFile" 
               onChange={onFileChange}
             />
-            <DocumentButton fileName={documentUpload.name || isDisabled} />
+           
+            <DocumentButton 
+              projectFileName={projectFileName}
+              documentUpload={documentUpload} 
+              guestMode={guestMode}
+              setDocumentUpload={setDocumentUpload}
+              selectFile={buttonClick}
+            />
           </span>
           ) : (
           <span>
             <input 
-              disabled={guestMode? true : false}
+              disabled={guestMode}
+              className="btn btn-outline-primary"
               id="fileButton" 
               type="button" 
               value="Subir documento" 
@@ -46,13 +53,12 @@ const AddDoc = ({setDocumentUpload, documentUpload, isDisabled, guestMode}) => {
             <input 
               type="file" 
               style={{display: 'none'}} 
-              id="hiddenFile" 
-              name="hiddenFile" 
+              id="hiddenFile"               
               onChange={onFileChange}
             />         
           </span>
         )
-      }      
+      }
     </span>
   );
 };
