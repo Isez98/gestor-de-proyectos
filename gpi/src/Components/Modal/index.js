@@ -3,11 +3,15 @@ import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-const Modal = ({modal, setModal, setDocumentUpload}) => {
+const Modal = ({modal, setModal, setDocumentUpload, setDataObject}) => {
 
   const confirmDelete = (e) => {
     e.preventDefault();
     setDocumentUpload(new File([""], ""))
+    setDataObject((prev) => ({
+      ...prev,
+      projectFileName: ""
+    }))
     setModal(false);
   }
 

@@ -2,14 +2,20 @@ import React from 'react';
 import DocumentButton from '../DocumentButton';
 import './styles.css';
 
-const AddDoc = ({setDocumentUpload, documentUpload, projectFileName, guestMode }) => {
+const AddDoc = ({setDocumentUpload, documentUpload, projectFileName, guestMode, setDataObject }) => {
 
   const buttonClick = () => {
     document.querySelector(`#hiddenFile`).click();
+    
   };
 
   const onFileChange = e => {
     setDocumentUpload(e.target.files[0])
+    const fileName = (e.target.files[0].name);
+    setDataObject((prev) => ({
+      ...prev,
+      projectFileName: fileName
+    }))
   };
 
   return(
@@ -38,6 +44,7 @@ const AddDoc = ({setDocumentUpload, documentUpload, projectFileName, guestMode }
               guestMode={guestMode}
               setDocumentUpload={setDocumentUpload}
               selectFile={buttonClick}
+              setDataObject={setDataObject}
             />
           </span>
           ) : (

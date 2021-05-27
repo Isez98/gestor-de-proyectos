@@ -7,14 +7,14 @@ import apis from '../../API';
 import axios from 'axios';
 import Modal from '../Modal';
 
-const DocumentButton = ({ documentUpload, guestMode, setDocumentUpload, selectFile, projectFileName }) => {
+const DocumentButton = ({ documentUpload, guestMode, setDocumentUpload, selectFile, projectFileName, setDataObject }) => {
   let { id } = useParams();
   const [modal, setModal] = useState(false);
 
   const downloadFile = () => {
     const payload = {
       _id: id,
-      projectFileName: documentUpload.name
+      projectFileName: projectFileName
     }
     apis.downloadDocument(payload).then((response) => {
       axios.get(`${response.data}`, {
@@ -27,7 +27,7 @@ const DocumentButton = ({ documentUpload, guestMode, setDocumentUpload, selectFi
         );
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", documentUpload.name);
+        link.setAttribute("download", projectFileName);
         document.body.appendChild(link);
         link.click();
       });
@@ -70,7 +70,12 @@ const DocumentButton = ({ documentUpload, guestMode, setDocumentUpload, selectFi
           </a>
         </span>
       </span>
-      <Modal modal={modal} setModal={setModal} setDocumentUpload={setDocumentUpload}></Modal>
+      <Modal 
+        modal={modal} 
+        setModal={setModal} 
+        setDocumentUpload={setDocumentUpload}
+        setDataObject={setDataObject}
+      ></Modal>
     </span>
   );
 }

@@ -84,22 +84,11 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
   }
 
   const onSubmit = async () => {
-    if(documentUpload.name !== dataObject.projectFileName){
-      setDataObject((prev) => ({
-        ...prev,
-        projectFileName: documentUpload.name,
-      }));
-    }
     try {
       //Structure Document form data to upload file      
       const formData = new FormData();
-      formData.append("fileName", documentUpload.name);
+      formData.append("fileName", dataObject.projectFileName);
       formData.append("document", documentUpload);
-      setDataObject((prev) => ({
-        ...prev,
-        projectFileName: documentUpload.name,
-      }));
-
       if (!edit) {
         //project info upload to database then upload document
         apis
@@ -122,24 +111,14 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
               },
             });
           }
-        ).then(() => {
-          try {
-            apis.getProjectById({ id }).then(response => {
-              setProjectData(response)
-            }).then(() => {
-              setDataObject(projectData)
-            })            
-          } catch (error) {
-            console.log(error.message);
-          }
-        });
+        );
       }else {
-        await apis.putProject(dataObject).then(() => {
-          apis.deleteDocument({_id: id, projectFileName: dataObject.projectFileName}).then((response) => {
-            if (documentUpload.size){ 
-              apis.postDocument({ id: id, formData })
-            } 
-          })          
+        await apis.putProject(dataObject).then(() => {          
+          if ((projectData.projectFileName !== dataObject.projectFileName) && projectData.projectFileName){ 
+            apis.deleteDocument({_id: id, projectFileName: projectData.projectFileName})            
+          }                  
+        }).then(() => {
+          apis.postDocument({ id: id, formData })
         }).then(() => {
           store.addNotification({
             title: "Proyecto actualizado con exito",
@@ -154,22 +133,11 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
               onScreen: true,
             },
           });
-        }).then(() => {
-          try {
-            apis.getProjectById({ id }).then(response => {
-              setProjectData(response)
-            }).then(() => {
-              setDataObject(projectData)
-            })            
-          } catch (error) {
-            console.log(error.message);
-          }
-        });
+        })
       }
     } catch (error) {
       console.log(error.message);
-    }
-    
+    }    
   };
 
   // Delete Project
@@ -199,6 +167,7 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
 
   return (
     <div id="create-container" className="w-100 text-left">
+      
       <div className="container-fluid"></div>
       <div className="d-sm-flex justify-content-between align-items-center">
         <h3 className="text-dark mb-0 pl-3">
@@ -407,6 +376,7 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
                         
                         <AddDoc
                           projectFileName={dataObject.projectFileName}
+                          setDataObject={setDataObject}
                           guestMode={guestMode}
                           setDocumentUpload={setDocumentUpload}
                           documentUpload={documentUpload}
