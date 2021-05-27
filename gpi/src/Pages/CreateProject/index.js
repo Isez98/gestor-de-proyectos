@@ -9,7 +9,13 @@ import { useParams } from "react-router-dom";
 import "react-notifications-component/dist/theme.css";
 import { store } from "react-notifications-component";
 
-const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) => {  
+const CreateProject = ({
+  title,
+  projectData,
+  setProjectData,
+  guestMode,
+  edit,
+}) => {
   let { id } = useParams();
   const [dataObject, setDataObject] = useState({
     proyectName: "",
@@ -48,8 +54,12 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
         );
       }
     }
-    if(guestMode){
-      for (var i = 0, len = document.getElementById("projectID").elements.length; i < len; ++i) {
+    if (guestMode) {
+      for (
+        var i = 0, len = document.getElementById("projectID").elements.length;
+        i < len;
+        ++i
+      ) {
         document.getElementById("projectID").elements[i].readOnly = true;
       }
     }
@@ -57,7 +67,6 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
 
   const [addStudent, setAddStudent] = useState([]);
   const [addTeacher, setAddTeacher] = useState([]);
-
 
   const handleType = (e) => {
     const { id, value } = e.target;
@@ -85,7 +94,7 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
 
   const onSubmit = async () => {
     try {
-      //Structure Document form data to upload file      
+      //Structure Document form data to upload file
       const formData = new FormData();
       formData.append("fileName", dataObject.projectFileName);
       formData.append("document", documentUpload);
@@ -94,13 +103,14 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
         apis
           .postProject(dataObject)
           .then((response) => {
-            apis.postDocument({ id: response.data.id, formData });            
+            apis.postDocument({ id: response.data.id, formData });
           })
           .then(() => {
             store.addNotification({
               title: "Proyecto registrado con exito",
-              message: "El proyecto se ha registrado con exito en la base de datos",
-              type: "success",
+              message:
+                "El proyecto se ha registrado con exito en la base de datos",
+              type: "default",
               insert: "top",
               container: "top-right",
               animationIn: ["animate__animated", "animate__fadeIn"],
@@ -145,24 +155,27 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
     const payload = {
       id: id,
     };
-    apis.deleteProject(payload).then((result) => {
-      store.addNotification({
-        title: "Proyecto eliminado",
-        message: "El proyecto se ha eliminado con exito de la base de datos",
-        type: "danger",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 3500,
-          onScreen: true,
-        },
+    apis
+      .deleteProject(payload)
+      .then((result) => {
+        store.addNotification({
+          title: "Proyecto eliminado",
+          message: "El proyecto se ha eliminado con exito de la base de datos",
+          type: "danger",
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 3500,
+            onScreen: true,
+          },
+        });
+      })
+      .then(() => {
+        //Delete all objects from folder and delete folder
+        apis.deleteDirectory({ id: id });
       });
-    }).then(() => {
-      //Delete all objects from folder and delete folder
-      apis.deleteDirectory({id: id});
-    });
   };
 
   return (
@@ -175,11 +188,7 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
         </h3>
       </div>
       <div className="row" />
-      <form
-        id="projectID"
-        className={`needs-validation`}
-        noValidate
-      >
+      <form id="projectID" className={`needs-validation`} noValidate>
         <div className="col-xl-12 offset-xl-0">
           <div className="card shadow mb-3">
             <div className="card-header py-3">
@@ -311,9 +320,7 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
                       }}
                     >
                       <optgroup label="Objetivo del proyecto">
-                        <option value="Integrador">
-                          Integrador
-                        </option>
+                        <option value="Integrador">Integrador</option>
                         <option value="Titulacion">Titulacion</option>
                       </optgroup>
                     </select>
@@ -336,9 +343,7 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
                       }}
                     >
                       <optgroup label="Estatus del proyecto">
-                        <option value="Cancelado">
-                          Cancelado
-                        </option>
+                        <option value="Cancelado">Cancelado</option>
                         <option value="En desarrollo">En desarrollo</option>
                         <option value="Finalizado">Finalizado</option>
                         <option value="Implementado">Implementado</option>
@@ -373,7 +378,6 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
                   <div className="form-row">
                     <div className="col">
                       <div className="form-group">
-                        
                         <AddDoc
                           projectFileName={dataObject.projectFileName}
                           setDataObject={setDataObject}
@@ -584,7 +588,7 @@ const CreateProject = ({ title, projectData, setProjectData, guestMode, edit }) 
                 onClick={deleteProject}
                 id="deleteBtn"
                 className="btn btn-outline-danger text-capitalize font-weight-bold flex-end"
-                style={edit ? {display: 'block'} : {display: 'none'}}
+                style={edit ? { display: "block" } : { display: "none" }}
                 type="button"
               >
                 Eliminar Proyecto
