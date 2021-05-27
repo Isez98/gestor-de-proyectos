@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start-client": "react-scripts start",
-    "build": "react-scripts build && (cd .. && cd gpi-server && npm install)",
+    "build": "react-scripts build && (cd ../gpi-server && npm install)",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "cd server && npm start"
